@@ -51,6 +51,14 @@
     table.sortable th::after { content: '\2195'; position: absolute; right: .4em; color: #aaa; font-size: .85em; }
     table.sortable th.sort-asc::after { content: '\25B2'; color: #2c5282; }
     table.sortable th.sort-desc::after { content: '\25BC'; color: #2c5282; }
+    .price-filter { display: flex; flex-wrap: wrap; gap: .4em; align-items: center;
+                     margin: 1.1em 0 .2em; font-size: .9em; }
+    .price-filter span { color: #666; margin-right: .2em; }
+    .price-filter button { font: inherit; font-size: .88em; padding: .25em .75em;
+                            border: 1px solid #cdd6e4; background: #fff; color: #2c5282;
+                            border-radius: 100px; cursor: pointer; }
+    .price-filter button:hover { border-color: #2c5282; }
+    .price-filter button.active { background: #2c5282; color: #fff; border-color: #2c5282; }
     .takeaway { background: #eef4fb; border-left: 4px solid #2c5282;
                  padding: .8em 1.1em; margin: .8em 0 1.4em 0; border-radius: 0 4px 4px 0; font-size: .96em; }
     .takeaway b { color: #2c5282; }
@@ -78,8 +86,8 @@
     <ul>
       <li><a href='#summary'>Summary</a></li>
       <li><a href='#factors'>1. What predicts value retention</a></li>
-      <li><a href='#established'>2. The established segment</a></li>
-      <li><a href='#accessible'>3. The accessible segment</a></li>
+      <li><a href='#accessible'>2. Lottery &amp; limited-release watches</a></li>
+      <li><a href='#established'>3. The established brands</a></li>
       <li><a href='#caution'>4. What to treat with caution</a></li>
       <li><a href='#costs'>5. Costs &amp; net returns</a></li>
       <li><a href='#principles'>6. Buying principles</a></li>
@@ -93,8 +101,8 @@
     <ul>
       <li><a href='#summary'>Summary</a></li>
       <li><a href='#factors'>1. What predicts value retention</a></li>
-      <li><a href='#established'>2. The established segment</a></li>
-      <li><a href='#accessible'>3. The accessible segment</a></li>
+      <li><a href='#accessible'>2. Lottery &amp; limited-release watches</a></li>
+      <li><a href='#established'>3. The established brands</a></li>
       <li><a href='#caution'>4. What to treat with caution</a></li>
       <li><a href='#costs'>5. Costs &amp; net returns</a></li>
       <li><a href='#principles'>6. Buying principles</a></li>
@@ -108,9 +116,9 @@
   <div class='summary' id='summary'>
     <h3>Summary</h3>
     <ul>
-      <li>Most watches depreciate. Outside Rolex, Patek Philippe, and Audemars Piguet, the average watch trades roughly <b>31% below retail</b> on the secondary market.</li>
-      <li>Those three brands retain value primarily in their <b>steel sports models</b>. The gain is largely the gap between retail and resale &mdash; so it depends on being able to buy at retail, which is the binding constraint.</li>
-      <li>A narrower exception exists at lower prices: some <b>independents and micro-brands</b> release watches by lottery or limited drop that resell above retail shortly after. A handful roughly double; most do not.</li>
+      <li>Most watches depreciate. Outside Rolex, Patek Philippe, and Audemars Piguet, the average watch trades roughly <b>31% below retail</b>.</li>
+      <li>The watches that hold value share one trait: <b>supply is allocated below demand</b> &mdash; by a waitlist at the top of the market, or by a <b>lottery, raffle, or limited drop</b> among independents. Either way, the gain is the retail-to-resale gap, captured only by buying at retail.</li>
+      <li>The lottery and limited-release route is the one that is <b>accessible at normal prices</b>: a handful of sub-$10,000 pieces resell at roughly <b>1.5&ndash;4&times;</b> retail. Most micro-brands, however, resell <i>below</i> retail.</li>
       <li>Transaction costs (~11&ndash;30% round-trip) and thin liquidity offset much of the gain. Watches are best understood as durable goods that <i>may</i> hold value, not as investments.</li>
     </ul>
   </div>
@@ -131,11 +139,43 @@
   </table></div>
   <p>The common thread is supply held below demand &mdash; whether by a waitlist, a discontinuation, or a small production run. Everything else is a variation on that.</p>
 
-  <h2 id='established'>2. The established segment</h2>
+  <h2 id='accessible'>2. Lottery and limited-release watches</h2>
   <div class='takeaway'>
-    <b>In short:</b> Rolex, Patek Philippe, and Audemars Piguet retain value in steel sports models. The premium is realized only if the watch is bought at retail; access, not capital, is the limiting factor.
+    <b>In short:</b> the most accessible way to own a watch that resells above retail is to be allocated one through a lottery, a raffle, or a limited drop. Production is set far below demand, so whoever gets one at retail can resell above it &mdash; though most micro-brands do not work this way.
   </div>
-  <p>For these references the resale price sits well above retail, but the brands restrict supply at the retail level. The return is the retail-to-resale gap, which a buyer captures only by being allocated a watch at the store price &mdash; often a matter of waitlists and purchase history.</p>
+  <p>This is where the scarcity mechanism is most direct, and where it is within reach at normal prices. A small independent or micro-brand makes far fewer watches than people want and allocates them by lottery, free raffle, or a single timed release that sells out in minutes. The figures below are <b>realized</b> resale prices &mdash; completed sales, drawn from 2024&ndash;2026 data, not asking prices. Filter by entry price, or click a column heading to sort.</p>
+
+  <div class='price-filter' role='group' aria-label='Filter by entry price'>
+    <span>Filter by entry price:</span>
+    <button type='button' data-max='1000'>&le; $1,000</button>
+    <button type='button' data-max='3000'>&le; $3,000</button>
+    <button type='button' data-max='5000'>&le; $5,000</button>
+    <button type='button' data-max='10000'>&le; $10,000</button>
+    <button type='button' data-max='all' class='active'>All</button>
+  </div>
+
+  <div style='overflow-x:auto'><table class='sortable' id='accessible-table'>
+    <tr><th>Watch</th><th>Entry price</th><th>Resale (realized)</th><th>Multiple</th><th>Allocation</th></tr>
+    <tr data-price='180'><td>G-Shock &times; Hodinkee &times; John Mayer "SK-5" (2020)</td><td>$180</td><td>$620&ndash;$965</td><td class='pos'>~3.5&ndash;4.4&times;</td><td>Timed online release; sold out</td></tr>
+    <tr data-price='700'><td>Studio Underd0g "Watermel0n"</td><td>~$700</td><td>$1.0K&ndash;$1.35K</td><td class='pos'>~1.6&ndash;1.9&times;</td><td>Drop registration; or secondary</td></tr>
+    <tr data-price='1350'><td>Ming 17.06</td><td>~$1,350</td><td>~$3,400</td><td class='pos'>~2.2&ndash;2.6&times;</td><td>Timed online drop; sold out</td></tr>
+    <tr data-price='2000'><td>Kurono Tokyo (limited editions)</td><td>~$2,000</td><td>$3.5K&ndash;$4.7K</td><td class='pos'>~1.8&ndash;2.3&times;</td><td>Timed drop, one per customer</td></tr>
+    <tr data-price='2800'><td>Anoma A1</td><td>~$2,800</td><td>~$3,740</td><td class='pos'>~1.3&times;</td><td>Timed drop; or secondary</td></tr>
+    <tr data-price='3000'><td>Louis Erard &times; Alain Silberstein R&eacute;gulateur (2019)</td><td>~$3,000</td><td>~$7,500</td><td class='pos'>~2.5&times;</td><td>Sold-out release; now secondary</td></tr>
+    <tr data-price='3000'><td>Otsuka Lotec No.&nbsp;6</td><td>~$3,000</td><td>$7K&ndash;$12K</td><td class='pos'>~2.5&ndash;4&times;</td><td>Japan-only lottery; non-residents need a proxy</td></tr>
+    <tr data-price='3100'><td>MB&amp;F M.A.D.1</td><td>~$3,100</td><td>modest (varies)</td><td class='neu'>~1.2&ndash;1.8&times;</td><td>Free public raffle, one entry per person</td></tr>
+    <tr data-price='4000'><td>Toledano &amp; Chan B/1</td><td>$4,000</td><td>$8K&ndash;$9K</td><td class='pos'>~2.2&times;</td><td>Sold out in under an hour; now via auction</td></tr>
+    <tr data-price='6000'><td>Massena LAB &times; Habring&sup2; Erwin (bronze, 50 pcs)</td><td>~$6,000</td><td>~$10K</td><td class='pos'>~1.7&times;</td><td>Sold out; occasional auction supply</td></tr>
+    <tr data-price='6400'><td>Otsuka Lotec No.&nbsp;8</td><td>~$6,400 (raffle)</td><td>limited data (2026)</td><td class='neu'>developing</td><td>Japan raffle (Mar 2026); same restrictions as No.&nbsp;6</td></tr>
+  </table></div>
+  <p>The premium belongs to whoever is allocated a watch at retail; buying on the secondary market means paying the premium rather than earning it. For release-driven pieces it is usually largest soon after the drop and compresses over time. Two entries are listed for context rather than as established results: the MB&amp;F M.A.D.1, a free-to-enter raffle whose resale premium is smaller and less consistent than the lottery independents; and the Otsuka Lotec No.&nbsp;8, a March 2026 release with little resale history yet.</p>
+  <p>At much higher prices, a few independents (Roger W. Smith, Vianney Halter, Atelier de Chronom&eacute;trie) also resell well above their original prices, but these are six-figure, auction-dependent watches with limited liquidity &mdash; a different category from the accessible pieces above.</p>
+
+  <h2 id='established'>3. The established brands</h2>
+  <div class='takeaway'>
+    <b>In short:</b> the same allocation dynamic operates at the top of the market. Rolex, Patek Philippe, and Audemars Piguet retain value in steel sports models, but only buyers allocated one at retail capture the premium &mdash; access, not capital, is the constraint.
+  </div>
+  <p>The mechanism is the lottery mechanism in a different guise. These brands restrict supply at the retail level much as the lottery makers do &mdash; here through waitlists and purchase history rather than a draw &mdash; so the resale price sits well above retail. The return is the retail-to-resale gap, captured only by being allocated a watch at the store price.</p>
   <div style='overflow-x:auto'><table class='sortable'>
     <tr><th>Reference</th><th>Retail</th><th>Secondary</th><th>Premium</th></tr>
     <tr><td>Rolex GMT-Master II "Pepsi" (discontinued)</td><td>was ~$11,800</td><td>$22K&ndash;$29K</td><td class='pos'>+85&ndash;147%</td></tr>
@@ -145,23 +185,6 @@
     <tr><td>AP Royal Oak Jumbo 15202 (discontinued)</td><td>was ~$33,300</td><td>$64K&ndash;$65K</td><td class='pos'>+91&ndash;95%</td></tr>
   </table></div>
   <p>At entry prices, value retention without the access advantage is modest: an Omega Speedmaster trades somewhat below retail pre-owned, and a Tudor Black Bay holds roughly 85&ndash;95% of retail. These are reasonable watches to own, but not appreciation stories.</p>
-
-  <h2 id='accessible'>3. The accessible segment</h2>
-  <div class='takeaway'>
-    <b>In short:</b> some independents and micro-brands apply the same scarcity mechanism at far lower prices &mdash; small runs, timed drops, or lotteries &mdash; and the resulting pieces can resell above retail. The premium is captured only by acquiring at retail.
-  </div>
-  <p>The mechanism is identical to the established segment: production is set well below demand, here by a lottery, a single timed release, or a limited edition. The figures below reflect <b>realized</b> resale prices rather than asking prices, and reflect 2024&ndash;2026 data.</p>
-  <div style='overflow-x:auto'><table class='sortable'>
-    <tr><th>Watch</th><th>Retail / entry</th><th>Resale (realized)</th><th>Multiple</th><th>Access</th></tr>
-    <tr><td>Otsuka Lotec No.&nbsp;6</td><td>~$3,000 (lottery)</td><td>$7K&ndash;$12K</td><td class='pos'>~2.5&ndash;4&times;</td><td>Japan-only lottery; non-residents need a proxy</td></tr>
-    <tr><td>Louis Erard &times; Alain Silberstein R&eacute;gulateur (2019)</td><td>~$3,000</td><td>~$7,500</td><td class='pos'>~2.5&times;</td><td>Sold out; available on the secondary market</td></tr>
-    <tr><td>Toledano &amp; Chan B/1</td><td>$4,000</td><td>$8K&ndash;$9K</td><td class='pos'>~2.2&times;</td><td>Sold out in under an hour; now via auction</td></tr>
-    <tr><td>Kurono Tokyo (limited editions)</td><td>~$2,000</td><td>$3.5K&ndash;$4.7K</td><td class='pos'>~1.8&ndash;2.3&times;</td><td>Timed drop, one per customer</td></tr>
-    <tr><td>Massena LAB &times; Habring&sup2; Erwin (bronze, 50 pcs)</td><td>~$6,000</td><td>~$10K</td><td class='pos'>~1.7&times;</td><td>Sold out; occasional auction supply</td></tr>
-    <tr><td>Studio Underd0g "Watermel0n"</td><td>~$700</td><td>$1.0K&ndash;$1.35K</td><td class='pos'>~1.6&ndash;1.9&times;</td><td>Drop registration or secondary</td></tr>
-  </table></div>
-  <p>As in the established segment, the premium belongs to whoever buys at retail. Purchasing on the secondary market means paying the premium rather than earning it. For pieces driven by a release event, any premium tends to be largest soon after the drop and to compress over time.</p>
-  <p>At much higher prices, a few independents (for example Roger W. Smith, Vianney Halter, Atelier de Chronom&eacute;trie) also resell well above their original prices, but these are six-figure, auction-dependent watches with limited liquidity &mdash; a different segment from the accessible pieces above.</p>
 
   <h2 id='caution'>4. What to treat with caution</h2>
   <div class='takeaway'>
@@ -231,6 +254,22 @@
         });
       });
     });
+
+    // Price filter (lottery / limited-release table)
+    const pf = document.querySelector('.price-filter');
+    if (pf) {
+      const prows = document.querySelectorAll('#accessible-table tr[data-price]');
+      pf.addEventListener('click', e => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const max = btn.dataset.max === 'all' ? Infinity : parseFloat(btn.dataset.max);
+        pf.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        prows.forEach(r => {
+          r.style.display = parseFloat(r.dataset.price) <= max ? '' : 'none';
+        });
+      });
+    }
 
     // Scroll-spy for TOC
     const tocLinks = document.querySelectorAll('nav.toc a');
