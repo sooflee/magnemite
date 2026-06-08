@@ -1,595 +1,233 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>magnemite — what predicts luxury watch investment returns?</title>
-  <meta name='description' content="A quantitative study of what qualities predict luxury watch appreciation: brand, material, scarcity, discontinuation status, and market data across 50+ references, with factor attribution and actionable buy signals.">
-  <meta property='og:type' content='article'>
-  <meta property='og:title' content="magnemite — what predicts luxury watch investment returns?">
-  <meta property='og:description' content="A quantitative study of what qualities predict luxury watch appreciation: brand, material, scarcity, discontinuation status, and market data across 50+ references.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do Watches Actually Make Money? — A Plain-English Guide</title>
+  <meta name="description" content="A no-jargon guide to whether watches hold value: why almost all of them lose money, the few that don't, and the cheap micro-brand watches that resell above retail the moment you buy them.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Do Watches Actually Make Money? — A Plain-English Guide">
+  <meta property="og:description" content="Why almost all watches lose money, the few that don't, and the cheap indie watches that flip above retail.">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-            margin: 0; color: #1a1a1a; line-height: 1.55; }
-    .layout { display: grid;
-               grid-template-columns: 14em minmax(0, 1100px);
-               gap: 2em;
-               max-width: 1400px;
-               margin: 2em auto;
-               padding: 0 1em; }
-    nav.toc { position: sticky; top: 2em; align-self: start;
-               font-size: .88em; max-height: calc(100vh - 4em);
-               overflow-y: auto; padding-right: .5em; }
-    nav.toc h4 { margin: 0 0 .6em 0; color: #2c5282; font-size: .82em;
-                  text-transform: uppercase; letter-spacing: .05em; }
-    nav.toc ul { list-style: none; padding: 0; margin: 0; }
-    nav.toc li { margin: .35em 0; }
-    nav.toc a { color: #444; text-decoration: none;
-                 border-left: 2px solid transparent; padding-left: .6em;
-                 display: block; line-height: 1.35; }
-    nav.toc a:hover { color: #2c5282; }
-    nav.toc a.active { color: #2c5282; font-weight: 600;
-                        border-left-color: #2c5282; }
-    article { min-width: 0; }
-    @media (max-width: 1100px) {
-      .layout { grid-template-columns: 1fr; max-width: 1100px; }
-      nav.toc { display: none; }
+    :root {
+      --bg:#0f1117; --surface:#181b23; --surface-hover:#1e2230; --border:#2a2e3a;
+      --text:#e4e4e7; --text-muted:#9ca3af; --accent:#c9a84c; --accent-dim:#a38735;
+      --red:#ef4444; --red-dim:rgba(239,68,68,.12); --green:#22c55e; --green-dim:rgba(34,197,94,.12);
+      --blue:#60a5fa; --blue-dim:rgba(96,165,250,.12); --orange:#fb923c; --orange-dim:rgba(251,146,60,.12);
     }
-    details.toc-mobile { display: none; margin: 1em 0;
-                          background: #f8f9fb; border: 1px solid #e0e6ef;
-                          padding: .6em 1em; border-radius: 4px; }
-    details.toc-mobile summary { cursor: pointer; font-weight: 600;
-                                  color: #2c5282; }
-    details.toc-mobile ul { list-style: none; padding-left: 0;
-                              margin: .8em 0 .2em 0; }
-    details.toc-mobile li { margin: .3em 0; }
-    details.toc-mobile a { color: #2c5282; text-decoration: none; }
-    @media (max-width: 1100px) {
-      details.toc-mobile { display: block; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+    .hero { position:relative; padding:5.5rem 2rem 3.5rem; text-align:center;
+      background:linear-gradient(180deg,#1a1d27 0%,var(--bg) 100%); border-bottom:1px solid var(--border); overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-50%; left:50%; transform:translateX(-50%);
+      width:600px; height:600px; background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 70%); pointer-events:none; }
+    .hero-label { display:inline-block; font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--accent); border:1px solid var(--accent-dim); padding:.35rem 1rem; border-radius:100px; margin-bottom:1.5rem; }
+    .hero h1 { font-size:clamp(2rem,5vw,3rem); font-weight:700; line-height:1.2; letter-spacing:-.02em; margin-bottom:1rem; }
+    .hero h1 span { color:var(--accent); }
+    .hero p { font-size:1.05rem; color:var(--text-muted); max-width:640px; margin:0 auto 1.5rem; }
+    .hero-nav { display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; }
+    .hero-nav a { font-size:.8rem; color:var(--text-muted); text-decoration:none; padding:.4rem 1rem;
+      border:1px solid var(--border); border-radius:100px; transition:all .2s; }
+    .hero-nav a:hover { border-color:var(--accent); color:var(--accent); }
+    .container { max-width:880px; margin:0 auto; padding:0 1.5rem; }
+    section { padding:3rem 0; border-bottom:1px solid var(--border); }
+    section:last-of-type { border-bottom:none; }
+    .section-label { font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:.5rem; }
+    h2 { font-size:1.55rem; font-weight:700; letter-spacing:-.01em; margin-bottom:1rem; }
+    h3 { font-size:1.1rem; font-weight:600; margin:1.8rem 0 .6rem; }
+    p { margin-bottom:1rem; color:var(--text-muted); }
+    p:last-child { margin-bottom:0; }
+    strong { color:var(--text); font-weight:600; }
+    .pill { display:inline-block; font-size:.72rem; font-weight:600; padding:.15rem .6rem; border-radius:100px; white-space:nowrap; }
+    .pill-green { background:var(--green-dim); color:var(--green); }
+    .pill-red { background:var(--red-dim); color:var(--red); }
+    .pill-blue { background:var(--blue-dim); color:var(--blue); }
+    .pill-orange { background:var(--orange-dim); color:var(--orange); }
+    .pill-gold { background:rgba(201,168,76,.15); color:var(--accent); }
+    table { width:100%; border-collapse:collapse; margin:1.25rem 0; font-size:.85rem; }
+    thead th { text-align:left; font-weight:600; font-size:.72rem; letter-spacing:.05em; text-transform:uppercase;
+      color:var(--text-muted); padding:.7rem .8rem; border-bottom:1px solid var(--border); white-space:nowrap; }
+    tbody td { padding:.65rem .8rem; border-bottom:1px solid var(--border); color:var(--text-muted); vertical-align:top; }
+    tbody tr:hover { background:var(--surface-hover); }
+    tbody td:first-child { color:var(--text); font-weight:500; }
+    .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; background:var(--surface); }
+    .table-wrap table { margin:0; }
+    .table-wrap thead th { background:var(--surface); }
+    .up { color:var(--green); font-weight:600; } .down { color:var(--red); font-weight:600; }
+    .flat { color:var(--blue); font-weight:600; } .premium { color:var(--accent); font-weight:600; }
+    .callout { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--accent);
+      border-radius:8px; padding:1.1rem 1.4rem; margin:1.25rem 0; }
+    .callout p { font-size:.95rem; }
+    .callout-green { border-left-color:var(--green); } .callout-red { border-left-color:var(--red); }
+    .callout-blue { border-left-color:var(--blue); } .callout-orange { border-left-color:var(--orange); }
+    .tldr { background:var(--surface); border:1px solid var(--accent-dim); border-radius:12px; padding:1.4rem 1.6rem; margin:0 0 1rem; }
+    .tldr ul { list-style:none; }
+    .tldr li { padding:.5rem 0 .5rem 1.6rem; position:relative; color:var(--text-muted); font-size:.95rem; border-top:1px solid var(--border); }
+    .tldr li:first-child { border-top:none; }
+    .tldr li::before { content:''; position:absolute; left:0; top:1.05rem; width:8px; height:8px; border-radius:2px; background:var(--accent); }
+    .tldr li strong { color:var(--text); }
+    .checklist { list-style:none; margin:1.25rem 0; }
+    .checklist li { padding:.55rem 0 .55rem 1.75rem; position:relative; color:var(--text-muted); font-size:.95rem; }
+    .checklist li::before { content:''; position:absolute; left:0; top:.85rem; width:8px; height:8px; border-radius:2px; background:var(--accent); }
+    .checklist li strong { color:var(--text); }
+    .ghost-list { list-style:none; margin:1rem 0; }
+    .ghost-list li { padding:.7rem 1rem; background:var(--surface); border:1px solid var(--border);
+      border-left:3px solid var(--red); border-radius:8px; margin-bottom:.5rem; font-size:.86rem; }
+    .ghost-list strong { color:var(--text); }
+    footer { padding:2.5rem 0; text-align:center; border-top:1px solid var(--border); }
+    footer p { font-size:.8rem; color:var(--text-muted); }
+    @media (max-width:640px) {
+      .hero { padding:4rem 1.25rem 2.5rem; }
+      table { font-size:.78rem; } thead th, tbody td { padding:.5rem .5rem; }
+      .hero-nav a { font-size:.72rem; padding:.35rem .75rem; }
     }
-    h1 { border-bottom: 2px solid #1a1a1a; padding-bottom: .3em; margin-bottom: .2em; }
-    h2 { margin-top: 2.2em; color: #2c5282; padding-bottom: .2em;
-          border-bottom: 1px solid #e0e6ef; scroll-margin-top: 1em; }
-    h3 { color: #2c5282; margin-top: 1.8em; scroll-margin-top: 1em; }
-    p { margin: .8em 0; }
-    table { border-collapse: collapse; margin: 1em 0; }
-    th, td { padding: .35em .8em; border-bottom: 1px solid #ddd; text-align: left;
-              font-size: .92em; }
-    th { background: #f3f5f9; }
-    table.leaderboard { font-family: ui-monospace, 'SF Mono', monospace;
-                         font-size: .82em; }
-    table.sortable th { cursor: pointer; user-select: none; position: relative;
-                          padding-right: 1.4em; }
-    table.sortable th::after { content: '\2195'; position: absolute;
-                                 right: .4em; color: #aaa; font-size: .85em; }
-    table.sortable th.sort-asc::after { content: '\25B2'; color: #2c5282; }
-    table.sortable th.sort-desc::after { content: '\25BC'; color: #2c5282; }
-    .takeaway { background: #eef4fb; border-left: 4px solid #2c5282;
-                 padding: .8em 1.1em; margin: .8em 0 1.4em 0;
-                 border-radius: 0 4px 4px 0; font-size: .96em; }
-    .takeaway b { color: #2c5282; }
-    .meta { color: #666; font-size: .9em; margin-bottom: 1.8em; }
-    .summary { background: #f3f5f9; border-left: 4px solid #2c5282;
-                padding: 1em 1.4em; margin: 1.5em 0; border-radius: 0 4px 4px 0; }
-    .summary h3 { margin-top: 0; color: #2c5282; }
-    .primer { background: #f8f9fb; border: 1px solid #e0e6ef;
-               padding: 1em 1.4em; margin: 1.5em 0; border-radius: 4px;
-               font-size: .94em; }
-    .primer h3 { margin-top: 0; color: #2c5282; }
-    .primer dt { font-weight: 600; margin-top: .55em; }
-    .primer dd { margin: 0 0 .2em 0; }
-    .caveat { background: #fff8e6; border-left: 4px solid #c9a227;
-               padding: .9em 1.2em; margin: 1.2em 0; font-size: .93em;
-               border-radius: 0 4px 4px 0; }
-    code { background: #f3f5f9; padding: 1px 5px; border-radius: 3px;
-            font-size: .9em; }
-    .footnote { color: #666; font-size: .85em; margin-top: 3em;
-                 border-top: 1px solid #eee; padding-top: 1em; }
-    details { margin: .8em 0; }
-    details summary { cursor: pointer; font-weight: 600; color: #2c5282; }
-    details[open] summary { margin-bottom: .6em; }
-    ul { margin: .4em 0; }
-    li { margin: .2em 0; }
-    div[style*='overflow-x:auto'] { -webkit-overflow-scrolling: touch; }
-    .pos { color: #276749; font-weight: 600; }
-    .neg { color: #c53030; font-weight: 600; }
-    .neu { color: #2c5282; font-weight: 600; }
-    .bar { display: inline-block; height: .85em; background: #2c5282; border-radius: 2px;
-            vertical-align: middle; margin-right: .4em; opacity: .7; }
-    .bar-green { background: #276749; }
-    .bar-red { background: #c53030; }
-    .bar-gold { background: #c9a227; }
   </style>
 </head>
 <body>
-  <div class='layout'>
-  <nav class='toc' aria-label='Section navigation'>
-    <h4>On this page</h4>
-    <ul>
-      <li><a href='#executive-summary'>Executive summary</a></li>
-      <li><a href='#how-to-read'>How to read this study</a></li>
-      <li><a href='#factors'>1. What predicts watch appreciation?</a></li>
-      <li><a href='#factor-deep-dive'>2. Factor deep-dive</a></li>
-      <li><a href='#leaderboard'>3. What to buy now</a></li>
-      <li><a href='#avoid'>4. What to avoid</a></li>
-      <li><a href='#market-cycle'>5. Market cycle &amp; timing</a></li>
-      <li><a href='#costs'>6. Hidden costs &amp; net returns</a></li>
-      <li><a href='#rules'>7. Buying rules</a></li>
-      <li><a href='#caveats'>Caveats</a></li>
-    </ul>
-  </nav>
-  <article>
 
-  <details class='toc-mobile'>
-    <summary>Jump to section &#x25BE;</summary>
-    <ul>
-      <li><a href='#executive-summary'>Executive summary</a></li>
-      <li><a href='#how-to-read'>How to read this study</a></li>
-      <li><a href='#factors'>1. What predicts watch appreciation?</a></li>
-      <li><a href='#factor-deep-dive'>2. Factor deep-dive</a></li>
-      <li><a href='#leaderboard'>3. What to buy now</a></li>
-      <li><a href='#avoid'>4. What to avoid</a></li>
-      <li><a href='#market-cycle'>5. Market cycle &amp; timing</a></li>
-      <li><a href='#costs'>6. Hidden costs &amp; net returns</a></li>
-      <li><a href='#rules'>7. Buying rules</a></li>
-      <li><a href='#caveats'>Caveats</a></li>
-    </ul>
-  </details>
+  <header class="hero">
+    <div class="hero-label">A Plain-English Guide</div>
+    <h1>Do watches actually <span>make money?</span></h1>
+    <p>Short answer: almost none do. But a few hold value &mdash; and a handful of cheap ones are worth more the second you buy them. Here's the whole thing, no jargon, no Rolex budget required.</p>
+    <div class="hero-nav">
+      <a href="#tldr">TL;DR</a>
+      <a href="#why">Why most lose money</a>
+      <a href="#bigmoney">If you have real money</a>
+      <a href="#budget">If you're broke (the fun part)</a>
+      <a href="#ghosts">Don't fall for hype</a>
+      <a href="#catch">The catch</a>
+    </div>
+  </header>
 
-  <h1>What predicts luxury watch investment returns?</h1>
-  <p class='meta'>~12 min read &middot; compiled May 2026 &middot; data from WatchCharts, Bloomberg Subdial50, Knight Frank KFLII, Bob's Watches, SSRN</p>
+  <main class="container">
 
-  <!-- Executive summary -->
-  <div class='summary' id='executive-summary'>
-    <h3>Executive summary</h3>
-    <ul>
-      <li><b>Factor #1: Brand.</b> Only three brands &mdash; Rolex, Patek Philippe, Audemars Piguet &mdash; have positive average value retention in the secondary market. Excluding those three, the average watch trades at <b>&minus;31%</b> vs. retail.</li>
-      <li><b>Factor #2: Discontinuation.</b> Frozen supply is the single strongest short-term catalyst. The Rolex Hulk, Patek 5711, and (as of April 2026) Rolex Pepsi GMT all surged after discontinuation.</li>
-      <li><b>Factor #3: Material paradox.</b> Stainless steel sports watches command <b>20&ndash;90%+</b> premiums over retail. Precious metal dress watches depreciate <b>10&ndash;20%</b> immediately. The cheapest material appreciates the most.</li>
-      <li><b>Market timing.</b> The WatchCharts Overall Index is <b>+8.2%</b> over the past year after a 13-quarter correction. Prices are accessible relative to 2022 peaks but remain above pre-pandemic levels.</li>
-      <li><b>Non-obvious finding.</b> Transaction costs (11&ndash;30% round-trip) are the dominant drag on net returns &mdash; a single buy-sell cycle wipes out ~3 years of 5% annual appreciation.</li>
-    </ul>
-  </div>
+    <!-- TL;DR -->
+    <section id="tldr">
+      <div class="section-label">The whole guide in 30 seconds</div>
+      <h2>TL;DR</h2>
+      <div class="tldr">
+        <ul>
+          <li><strong>Almost all watches lose money.</strong> Outside three brands, the average watch resells for ~31% <em>below</em> what you paid.</li>
+          <li><strong>Only Rolex, Patek Philippe &amp; AP reliably hold value</strong> &mdash; and really only their steel sports models. If you can buy one at the store price, you basically win instantly.</li>
+          <li><strong>The hack for the rest of us:</strong> a niche of cheap indie/micro watches sells out fast and instantly resells <em>above</em> retail. Some double.</li>
+          <li><strong>The catch:</strong> fees and slow resale eat your profit. Treat it as a hobby that can hold value &mdash; not a stock.</li>
+        </ul>
+      </div>
+    </section>
 
-  <!-- How to read -->
-  <div class='primer' id='how-to-read'>
-    <h3>How to read this study</h3>
-    <dl>
-      <dt>Value retention</dt>
-      <dd>The ratio of secondary-market price to original MSRP, expressed as a percentage. +20% means the watch trades at 120% of retail. Data from WatchCharts brand indices.</dd>
-      <dt>Premium / discount to retail</dt>
-      <dd>Current secondary market price minus current MSRP. Positive = trades above retail (demand exceeds supply). Negative = depreciation.</dd>
-      <dt>CAGR</dt>
-      <dd>Compound annual growth rate &mdash; the smoothed annualized return over a period. We report both nominal CAGR and inflation-adjusted where noted.</dd>
-      <dt>Factor weight</dt>
-      <dd>A normalized importance score (0&ndash;1) indicating how strongly a quality predicts appreciation, derived from secondary market data across 50+ actively traded references. Higher = more predictive.</dd>
-      <dt>Signal (Buy / Hold / Caution / Avoid)</dt>
-      <dd>An editorial assessment combining current valuation relative to historical range, factor scores, and macro timing. Not a recommendation &mdash; see caveats.</dd>
-    </dl>
-  </div>
+    <!-- Why most lose money -->
+    <section id="why">
+      <div class="section-label">01 &mdash; The Rules</div>
+      <h2>Why most watches lose money (and which don't)</h2>
+      <p>Whether a watch goes up comes down to a few simple things. Get these and you understand 90% of it:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What matters</th><th>The rule</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Brand</td><td>Only Rolex, Patek, AP hold value</td><td>They make less than people want, on purpose</td></tr>
+            <tr><td>Material</td><td class="up">Steel beats gold</td><td>More people can afford steel, so demand is deeper. Gold dress watches drop 10&ndash;20% instantly</td></tr>
+            <tr><td>Type</td><td class="up">Sports beats dress</td><td>Divers and chronographs are what everyone wants</td></tr>
+            <tr><td>Discontinued?</td><td class="up">Yes = price spikes</td><td>Supply freezes, demand keeps going. The Patek 5711 tripled after it was killed</td></tr>
+            <tr><td>Scarce / waitlisted?</td><td class="up">Long wait = big premium</td><td>You literally can't buy one at retail, so the resale price balloons</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout-blue">
+        <p><strong>The one idea behind all of it:</strong> price goes up when supply is artificially smaller than demand. A long waitlist, a discontinued model, a 175-piece run, a lottery &mdash; all the same trick.</p>
+      </div>
+    </section>
 
-  <!-- Section 1: Factors -->
-  <h2 id='factors'>1. What predicts watch appreciation?</h2>
-  <div class='takeaway'>
-    <b>Bottom line:</b> Six observable factors explain most of the cross-sectional variation in watch value retention. Brand and discontinuation status dominate; dial color and cultural significance provide secondary signal. Production volume and waitlist length are proxies for the underlying scarcity that drives all of it.
-  </div>
+    <!-- Big money -->
+    <section id="bigmoney">
+      <div class="section-label">02 &mdash; If You Have $10k+</div>
+      <h2>The blue-chip play</h2>
+      <p>If you've got real money, the move is boring and reliable: get a steel sports Rolex/Patek/AP <strong>at the store (retail) price</strong>. The whole profit is the gap between that price and what it resells for. The hard part isn't money &mdash; it's getting the store to sell you one.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Watch</th><th>Retail</th><th>Resells for</th><th>Premium</th></tr></thead>
+          <tbody>
+            <tr><td>Rolex GMT "Pepsi" <span class="pill pill-gold">just discontinued</span></td><td>was ~$11,800</td><td>$22k&ndash;29k</td><td class="up">+85&ndash;147%</td></tr>
+            <tr><td>Rolex Daytona "Panda"</td><td>~$16,800</td><td>$32k&ndash;40k</td><td class="up">+90&ndash;140%</td></tr>
+            <tr><td>Rolex Submariner</td><td>$11,350</td><td>$15.7k&ndash;16.3k</td><td class="up">+38&ndash;43%</td></tr>
+            <tr><td>Patek Nautilus 5711 (discontinued)</td><td>was ~$30,000</td><td>$89k&ndash;145k</td><td class="up">+197&ndash;383%</td></tr>
+            <tr><td>AP Royal Oak Jumbo (discontinued)</td><td>was ~$33,300</td><td>$64k&ndash;65k</td><td class="up">+91&ndash;95%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.88rem;">Realistically a student isn't getting a retail Daytona. So the actually-useful part is next.</p>
+    </section>
 
-  <p>We examine every factor that varies across watch references and ask: does this quality predict whether a watch will trade above or below retail on the secondary market? The table below ranks factors by observed predictive strength, derived from value-retention data across 50+ actively traded references from WatchCharts, Bloomberg Subdial50, and dealer sources.</p>
+    <!-- Budget / instant premium -->
+    <section id="budget">
+      <div class="section-label">03 &mdash; If You're On a Budget</div>
+      <h2>The fun part: cheap watches worth more the day you get them</h2>
+      <p>Small independent brands run the same scarcity trick at <strong>student prices</strong>: tiny limited runs, timed online drops, or lotteries. Win the drop and you can flip it the same week for more than you paid. These are real, verified resale prices &mdash; not wishful thinking.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Watch</th><th>You pay</th><th>It resells for</th><th>Multiple</th><th>How to get it</th></tr></thead>
+          <tbody>
+            <tr><td>G-Shock &times; Hodinkee &times; John Mayer "SK-5" (2020)</td><td>$180</td><td>~$620&ndash;965</td><td class="up">~3.5&ndash;4.4&times;</td><td>StockX. 2020 version only</td></tr>
+            <tr><td>Otsuka Lotec No.&nbsp;6</td><td>~$3,000 (lottery)</td><td>$7k&ndash;12k</td><td class="up">~2.5&ndash;4&times;</td><td>Win the Japan lottery (needs a JP proxy)</td></tr>
+            <tr><td>Louis Erard &times; Alain Silberstein R&eacute;gulateur</td><td>~$3,000</td><td>~$7,500</td><td class="up">~2.5&times;</td><td>Buy used on Chrono24. The safest pick</td></tr>
+            <tr><td>Toledano &amp; Chan B/1</td><td>$4,000</td><td>$8k&ndash;9k</td><td class="up">~2.2&times;</td><td>Auction (Loupe This / Bezel)</td></tr>
+            <tr><td>Kurono Tokyo (limited editions)</td><td>~$2,000</td><td>$3.5k&ndash;4.7k</td><td class="up">~1.8&ndash;2.3&times;</td><td>Timed drop, 1 per person. Be online on time</td></tr>
+            <tr><td>Studio Underd0g "Watermel0n"</td><td>~$700</td><td>~$1,000&ndash;1,350</td><td class="up">~1.6&ndash;1.9&times;</td><td>Drop signup or buy used. Original series only</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout-green">
+        <p><strong>Best starter pick:</strong> the <strong>Louis Erard &times; Silberstein</strong> &mdash; ~$3k, you can buy <em>and</em> sell it any day on Chrono24, and it's reliably worth ~2.5&times;. The cheapest test-drive: the <strong>$180 John Mayer G-Shock</strong>, which flips for ~$800 on StockX like a sneaker.</p>
+      </div>
+      <div class="callout callout-orange">
+        <p><strong>How the cheap ones work:</strong> the brand makes way fewer than people want and sells them by lottery or a drop that sells out in seconds. If you're <em>in</em> at retail, you profit. If you buy on resale, you're paying the premium, not earning it. For drop watches, flip fast &mdash; the hype fades.</p>
+      </div>
+    </section>
 
-  <div style='overflow-x:auto'><table class='leaderboard sortable'>
-    <tr>
-      <th>Rank</th>
-      <th>Factor</th>
-      <th>Weight</th>
-      <th>Direction</th>
-      <th>Effect size</th>
-      <th>Evidence</th>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Brand tier</td>
-      <td><span class='bar bar-green' style='width:10em'></span> 1.00</td>
-      <td>Top 3 &gt; all others</td>
-      <td class='pos'>+13.8% to +32.3% avg. retention (top 3) vs. &minus;31% (rest)</td>
-      <td>WatchCharts brand-level value retention, all refs</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Discontinuation status</td>
-      <td><span class='bar bar-green' style='width:8.5em'></span> 0.85</td>
-      <td>Discontinued &gt; current</td>
-      <td class='pos'>+50&ndash;400% premium surge post-discontinuation (Hulk, 5711, Pepsi)</td>
-      <td>WatchCharts model-level timeseries</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Case material</td>
-      <td><span class='bar bar-green' style='width:7.5em'></span> 0.75</td>
-      <td>Steel &gt; precious metal</td>
-      <td class='pos'>+20&ndash;90% premium (steel) vs. &minus;10&ndash;20% (gold/Pt)</td>
-      <td>Cross-ref comparison within same brand/collection</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Watch category</td>
-      <td><span class='bar' style='width:6.5em'></span> 0.65</td>
-      <td>Sports &gt; dress</td>
-      <td class='pos'>Sports models: +30&ndash;150% premiums. Dress: &minus;5&ndash;30%</td>
-      <td>Submariner/Daytona/RO vs. Calatrava/Cellini</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Waitlist length</td>
-      <td><span class='bar' style='width:5.5em'></span> 0.55</td>
-      <td>Longer &gt; shorter</td>
-      <td class='pos'>5&ndash;10yr wait &rarr; 85&ndash;147% premium (Daytona, Nautilus, RO)</td>
-      <td>AD waitlist reports vs. secondary premiums</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Dial variant / rarity</td>
-      <td><span class='bar' style='width:5em'></span> 0.50</td>
-      <td>Rare colorways &gt; standard</td>
-      <td class='pos'>White Panda Daytona: +$5K&ndash;$6K over black. Tiffany 5711: +3,092%</td>
-      <td>Same-ref dial variant price differentials</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Set completeness</td>
-      <td><span class='bar bar-gold' style='width:4em'></span> 0.40</td>
-      <td>Full set &gt; watch-only</td>
-      <td class='pos'>+15&ndash;40% for box, papers, warranty card</td>
-      <td>Dealer bid data; auction realized prices</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Cultural significance</td>
-      <td><span class='bar bar-gold' style='width:3.5em'></span> 0.35</td>
-      <td>Iconic &gt; generic</td>
-      <td class='pos'>Paul Newman Daytona, NASA Speedmaster &mdash; permanent demand floors</td>
-      <td>Historical auction data; secondary market stability</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Production volume</td>
-      <td><span class='bar bar-gold' style='width:3em'></span> 0.30</td>
-      <td>Lower &gt; higher</td>
-      <td class='pos'>PP 70K/yr total; 5711 ~1,300/yr. Rolex ~1.2M/yr but tightly allocated</td>
-      <td>Manufacturer estimates; allocation reports</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Condition / originality</td>
-      <td><span class='bar bar-gold' style='width:2.5em'></span> 0.25</td>
-      <td>Unpolished &gt; refinished</td>
-      <td class='neg'>Aftermarket mods or polish can cut value &minus;50%</td>
-      <td>Dealer case studies; auction comparisons</td>
-    </tr>
-  </table></div>
+    <!-- Don't chase / ghosts -->
+    <section id="ghosts">
+      <div class="section-label">04 &mdash; Reality Check</div>
+      <h2>Don't fall for the hype</h2>
+      <p>Most micro-brands actually <strong>lose</strong> money, and the internet wildly exaggerates the winners. Two things to internalize:</p>
 
-  <!-- Section 2: Factor deep-dive -->
-  <h2 id='factor-deep-dive'>2. Factor deep-dive</h2>
-  <div class='takeaway'>
-    <b>Bottom line:</b> The top three factors (brand, discontinuation, material) account for most of the signal. A discontinued steel sports watch from a top-3 brand is the highest-probability appreciation play in the market. Everything else is secondary.
-  </div>
+      <h3>These trade <span style="color:var(--red)">below</span> retail &mdash; buy them to wear, not to profit</h3>
+      <p style="font-size:.9rem;">Tudor (Black Bay), Grand Seiko, most affordable dive-watch micro-brands (Lorier, Serica, Nodus), Ressence, Czapek. All resell for <strong>60&ndash;95%</strong> of retail. Nice watches; not investments.</p>
 
-  <h3>2a. Brand: the primary filter</h3>
-  <p>Out of all major Swiss manufacturers, only three maintain <b>positive average value retention</b> at meaningful volume in the secondary market. These three account for over 50% of secondary market transaction value (~$10B combined annually).</p>
-  <div style='overflow-x:auto'><table class='leaderboard sortable'>
-    <tr><th>Brand</th><th>Avg. premium</th><th>2025 index return</th><th>Annual production</th><th>Liquidity rank</th></tr>
-    <tr><td>Patek Philippe</td><td class='pos'>+32.3%</td><td class='pos'>+7.7%</td><td>~70,000</td><td>3</td></tr>
-    <tr><td>Rolex</td><td class='pos'>+21.6%</td><td class='pos'>+4.6%</td><td>~1,200,000</td><td>1</td></tr>
-    <tr><td>Audemars Piguet</td><td class='pos'>+15.4%</td><td class='pos'>+3.4%</td><td>~50,000</td><td>4</td></tr>
-    <tr><td>F.P. Journe</td><td class='pos'>+est. 200&ndash;600%</td><td class='pos'>+176% of auction est.</td><td>~900</td><td>6</td></tr>
-    <tr><td>Richard Mille</td><td class='pos'>+varies</td><td class='pos'>+23.8% (Q3 '25)</td><td>~5,500</td><td>5</td></tr>
-    <tr><td>Vacheron Constantin</td><td class='pos'>+15&ndash;25%</td><td class='pos'>+50% sales YoY</td><td>~25,000</td><td>7</td></tr>
-    <tr><td>Omega</td><td class='neg'>&minus;20&ndash;30% (std.)</td><td>2nd market share</td><td>~700,000</td><td>2</td></tr>
-    <tr><td>All others</td><td class='neg'>&minus;31% avg.</td><td>Negative</td><td>Varies</td><td>&mdash;</td></tr>
-  </table></div>
+      <h3>"This watch 10x'd!" &mdash; usually fake</h3>
+      <p style="font-size:.9rem;">Most viral resale stories quote an <em>asking</em> price (what someone hopes to get) not a real sale. Examples that fell apart when checked:</p>
+      <ul class="ghost-list">
+        <li><strong>Furlan Marri "~10&times;"</strong> &mdash; nope. Real sales are modest.</li>
+        <li><strong>Autodromo Monoposto "4.5&times;"</strong> &mdash; that was one freak auction lot. Normal ones sell for <em>less than retail</em> ($375&ndash;500).</li>
+        <li><strong>MoonSwatch / Halios / Unimatic "2&times;"</strong> &mdash; asking prices. Real sales sit near retail.</li>
+      </ul>
+      <p style="font-size:.9rem;"><strong>Rule:</strong> only trust a price someone <em>actually paid</em> (StockX last-sale, real auction results) &mdash; never a "for sale" listing.</p>
+    </section>
 
-  <h3>2b. The steel paradox</h3>
-  <p>The cheapest case material consistently commands the highest secondary market premiums. Within every major collection, the steel variant outperforms gold and platinum:</p>
-  <div style='overflow-x:auto'><table>
-    <tr><th>Collection</th><th>Steel premium</th><th>Gold/Pt premium</th><th>Spread</th></tr>
-    <tr><td>Rolex Submariner</td><td class='pos'>+38&ndash;43%</td><td class='neg'>&minus;10&ndash;20%</td><td class='pos'>+58&ndash;63 pp</td></tr>
-    <tr><td>Rolex Daytona</td><td class='pos'>+90&ndash;140%</td><td class='neg'>&minus;5&ndash;15%</td><td class='pos'>+105&ndash;155 pp</td></tr>
-    <tr><td>Patek Nautilus</td><td class='pos'>+197&ndash;383%</td><td class='pos'>+67%</td><td class='pos'>+130&ndash;316 pp</td></tr>
-    <tr><td>AP Royal Oak</td><td class='pos'>+48&ndash;95%</td><td class='neg'>&minus;5&ndash;10%</td><td class='pos'>+53&ndash;105 pp</td></tr>
-  </table></div>
-  <p><b>Mechanism:</b> Demand is broadest at steel price points (more buyers), while brands restrict steel allocation more aggressively than precious metal to protect waitlists.</p>
+    <!-- The catch -->
+    <section id="catch">
+      <div class="section-label">05 &mdash; The Catch</div>
+      <h2>What eats your profit</h2>
+      <p>Even a winner isn't free money. Selling a watch costs <strong>11&ndash;30%</strong> round-trip (dealer spreads, platform fees), and you might wait weeks or months to find a buyer &mdash; you can't sell a watch instantly like a stock. A watch that goes up 5% a year but costs you 3% a year to own and insure barely beats zero.</p>
+      <div class="callout callout-red">
+        <p><strong>Honest take:</strong> the only watches that clearly beat the costs are (a) retail blue-chip Rolex/Patek/AP you can actually get, and (b) the cheap lottery/drop indies above &mdash; if you get them at retail. Everything else is a hobby you might break even on. <em>This is info, not financial advice.</em></p>
+      </div>
 
-  <h3>2c. Discontinuation: the supply freeze</h3>
-  <p>When a reference is discontinued, supply becomes permanently fixed while demand continues. The effect is immediate and durable:</p>
-  <div style='overflow-x:auto'><table>
-    <tr><th>Reference</th><th>Discontinued</th><th>Price at disc.</th><th>Current price</th><th>Post-disc. return</th></tr>
-    <tr><td>Rolex Submariner Hulk (116610LV)</td><td>2020</td><td>~$15,000</td><td>$18,000&ndash;$25,000</td><td class='pos'>+20&ndash;67%</td></tr>
-    <tr><td>Patek Nautilus 5711/1A-010</td><td>2021</td><td>~$60,000 (sec.)</td><td>$89,000&ndash;$145,000</td><td class='pos'>+48&ndash;142%</td></tr>
-    <tr><td>Rolex GMT Pepsi (126710BLRO)</td><td>Apr 2026</td><td>~$22,000</td><td>$22,000&ndash;$29,100</td><td class='neu'>developing</td></tr>
-    <tr><td>AP Royal Oak Jumbo (15202ST)</td><td>2022</td><td>~$45,000</td><td>$63,758&ndash;$65,000</td><td class='pos'>+42&ndash;44%</td></tr>
-    <tr><td>Rolex Kermit (16610LV)</td><td>2010</td><td>~$7,625</td><td>~$13,259</td><td class='pos'>+74%</td></tr>
-  </table></div>
+      <h3>5 rules if you try this</h3>
+      <ul class="checklist">
+        <li><strong>Buy at retail, not resale.</strong> The profit <em>is</em> the gap between retail and resale. Pay resale and it's gone.</li>
+        <li><strong>Only trust prices people actually paid.</strong> Ignore "for sale" listings &mdash; use StockX and auction results.</li>
+        <li><strong>Scarcity beats hype.</strong> A lottery or a 175-piece cap lasts; generic buzz fades.</li>
+        <li><strong>Drop watches: flip fast.</strong> The premium is biggest in the first weeks.</li>
+        <li><strong>Keep the box &amp; papers, don't polish it.</strong> Both quietly cost you 15&ndash;50% if missing/done.</li>
+      </ul>
+    </section>
 
-  <!-- Section 3: Leaderboard -->
-  <h2 id='leaderboard'>3. What to buy now</h2>
-  <div class='takeaway'>
-    <b>Bottom line:</b> The strongest current opportunities cluster around recently discontinued Rolex GMT references, undervalued Vacheron Overseas, and sub-$10K Omega Speedmasters. Within Rolex, the Pepsi GMT discontinuation is the single most actionable catalyst in the 2026 market.
-  </div>
+  </main>
 
-  <p>Each reference is scored against the factor model above. <b>Click any column header</b> to sort. Signal reflects factor score, current valuation vs. historical range, and macro timing.</p>
+  <footer>
+    <p>Compiled June 2026 from public market data (WatchCharts, Chrono24, StockX, Phillips &amp; other auctions) and five rounds of multi-agent research with fact-checking. Prices move &mdash; this is for learning, not financial advice.</p>
+  </footer>
 
-  <div style='overflow-x:auto'><table class='leaderboard sortable'>
-    <tr>
-      <th>Reference</th>
-      <th>Model</th>
-      <th>Retail</th>
-      <th>Secondary</th>
-      <th>Premium</th>
-      <th>Factor score</th>
-      <th>Signal</th>
-    </tr>
-    <tr>
-      <td>Rolex 126710BLRO</td>
-      <td>GMT Pepsi (DISC.)</td>
-      <td>was $11,800</td>
-      <td>$22K&ndash;$29K</td>
-      <td class='pos'>+85&ndash;147%</td>
-      <td><span class='bar bar-green' style='width:9.2em'></span> 0.92</td>
-      <td><b class='pos'>Strong Buy</b></td>
-    </tr>
-    <tr>
-      <td>Rolex 126500LN (white)</td>
-      <td>Daytona Panda</td>
-      <td>$16,800</td>
-      <td>$32K&ndash;$40K</td>
-      <td class='pos'>+90&ndash;140%</td>
-      <td><span class='bar bar-green' style='width:8.8em'></span> 0.88</td>
-      <td><b class='neu'>Hold</b></td>
-    </tr>
-    <tr>
-      <td>Rolex 126710BLNR</td>
-      <td>GMT Batman</td>
-      <td>$11,800</td>
-      <td>$17K&ndash;$21K</td>
-      <td class='pos'>+40&ndash;78%</td>
-      <td><span class='bar bar-green' style='width:8.5em'></span> 0.85</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>Rolex 126610LN</td>
-      <td>Submariner Date</td>
-      <td>$11,350</td>
-      <td>$15.7K&ndash;$16.3K</td>
-      <td class='pos'>+38&ndash;43%</td>
-      <td><span class='bar bar-green' style='width:8.3em'></span> 0.83</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>Rolex 116610LV</td>
-      <td>Submariner Hulk (DISC.)</td>
-      <td>was $9,050</td>
-      <td>$18K&ndash;$25K</td>
-      <td class='pos'>+100&ndash;175%</td>
-      <td><span class='bar bar-green' style='width:8.7em'></span> 0.87</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>Rolex 326934</td>
-      <td>Sky-Dweller Steel/Blue</td>
-      <td>~$16,800</td>
-      <td>$23K&ndash;$28K</td>
-      <td class='pos'>+30&ndash;60%</td>
-      <td><span class='bar' style='width:7em'></span> 0.70</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>Patek 5711/1A-010</td>
-      <td>Nautilus Blue (DISC.)</td>
-      <td>was $30,000</td>
-      <td>$89K&ndash;$145K</td>
-      <td class='pos'>+197&ndash;383%</td>
-      <td><span class='bar bar-green' style='width:9.5em'></span> 0.95</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>Patek 5167A</td>
-      <td>Aquanaut Steel</td>
-      <td>$29,000</td>
-      <td>$50K&ndash;$65K</td>
-      <td class='pos'>~2x MSRP</td>
-      <td><span class='bar bar-green' style='width:8.2em'></span> 0.82</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>AP 15500ST</td>
-      <td>Royal Oak 41mm</td>
-      <td>$29,900</td>
-      <td>~$44K</td>
-      <td class='pos'>+48%</td>
-      <td><span class='bar' style='width:7.8em'></span> 0.78</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>AP 15202ST</td>
-      <td>Royal Oak Jumbo (DISC.)</td>
-      <td>was $33,300</td>
-      <td>$64K&ndash;$65K</td>
-      <td class='pos'>+91&ndash;95%</td>
-      <td><span class='bar bar-green' style='width:8.8em'></span> 0.88</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>VC Overseas</td>
-      <td>Self-winding Steel</td>
-      <td>~$24,000</td>
-      <td>$26K&ndash;$33K</td>
-      <td class='pos'>+15&ndash;25%</td>
-      <td><span class='bar' style='width:7em'></span> 0.70</td>
-      <td><b class='pos'>Buy</b> (gap play)</td>
-    </tr>
-    <tr>
-      <td>Omega 310.30</td>
-      <td>Speedmaster Moonwatch</td>
-      <td>$6,600</td>
-      <td>$4.5K&ndash;$5.2K</td>
-      <td class='neg'>&minus;20% (below retail)</td>
-      <td><span class='bar' style='width:6.5em'></span> 0.65</td>
-      <td><b class='pos'>Buy</b></td>
-    </tr>
-    <tr>
-      <td>Tudor BB58</td>
-      <td>Black Bay 58</td>
-      <td>$3,825</td>
-      <td>$3.2K&ndash;$3.6K</td>
-      <td class='neg'>&minus;6&ndash;16%</td>
-      <td><span class='bar bar-gold' style='width:4.5em'></span> 0.45</td>
-      <td><b class='neu'>Hold</b> (low risk)</td>
-    </tr>
-  </table></div>
-
-  <div class='caveat'>
-    <b>Reading the factor score:</b> The score composites all 10 factors from Section 1. A reference scoring 0.90+ hits on nearly every predictive quality (top-3 brand, steel, sports, discontinued, rare dial, long waitlist). Scores below 0.50 fail on multiple factors and carry depreciation risk. The score is directional, not a return prediction.
-  </div>
-
-  <h3>3a. Entry-point tiers</h3>
-  <div style='overflow-x:auto'><table>
-    <tr><th>Budget</th><th>Top pick</th><th>Price</th><th>Why</th></tr>
-    <tr><td><b>&lt; $10K</b></td><td>Omega Speedmaster Moonwatch</td><td>$4,500&ndash;$5,200 pre-owned</td><td>Below retail, 6&ndash;14% hist. CAGR, 2nd-highest secondary market share, permanent cultural demand floor</td></tr>
-    <tr><td><b>&lt; $15K</b></td><td>Rolex Submariner 126610LN (at retail)</td><td>$11,350 MSRP</td><td>Most liquid watch in secondary market; +38&ndash;43% immediate premium; 335% collection appreciation since 2011</td></tr>
-    <tr><td><b>&lt; $25K</b></td><td>Rolex GMT Pepsi 126710BLRO</td><td>$22K&ndash;$29K secondary</td><td>Freshly discontinued (Apr 2026); no replacement; 506% collection CAGR; strongest catalyst in the market</td></tr>
-    <tr><td><b>$25K+</b></td><td>Vacheron Overseas (steel)</td><td>$26K&ndash;$33K secondary</td><td>15&ndash;25% premium vs. 100%+ for equivalent Nautilus/RO; +50% sales YoY; largest relative-value gap in the market</td></tr>
-  </table></div>
-
-  <!-- Section 4: What to avoid -->
-  <h2 id='avoid'>4. What to avoid</h2>
-  <div class='takeaway'>
-    <b>Bottom line:</b> References that fail multiple factors &mdash; mid-tier brand, precious metal, dress category, high production &mdash; are structurally likely to depreciate. Some top-tier references are currently overvalued relative to their own history.
-  </div>
-  <div style='overflow-x:auto'><table class='leaderboard sortable'>
-    <tr><th>Reference / Category</th><th>Why avoid</th><th>Factor score</th><th>Signal</th></tr>
-    <tr><td>Patek 5711 Tiffany Blue</td><td>$1.68M for a $52K retail watch. Pure speculation; liquidity evaporates at this price.</td><td><span class='bar bar-red' style='width:3em'></span> 0.30</td><td><b class='neg'>Avoid</b></td></tr>
-    <tr><td>F.P. Journe (current levels)</td><td>176% of auction high estimates in 2025. Analysts flag cooling risk. May be priced in.</td><td><span class='bar bar-gold' style='width:5em'></span> 0.50</td><td><b class='neg'>Caution</b></td></tr>
-    <tr><td>Rolex Daytona Panda (secondary)</td><td>$32K&ndash;$40K is historically elevated. Vulnerable to macro downturn. Premium is real but entry isn't favorable.</td><td><span class='bar bar-gold' style='width:5.5em'></span> 0.55</td><td><b class='neg'>Caution</b></td></tr>
-    <tr><td>Any mid-tier brand at retail</td><td>Outside top 3, avg. watch trades &minus;31% vs. retail. TAG, Breitling, Longines &mdash; buy pre-owned or not at all.</td><td><span class='bar bar-red' style='width:2em'></span> 0.20</td><td><b class='neg'>Avoid</b></td></tr>
-    <tr><td>Precious metal dress watches</td><td>Gold/Pt Cellini, Day-Date &mdash; depreciate 10&ndash;20% immediately, rarely recover. Steel sports outperform in every collection.</td><td><span class='bar bar-red' style='width:2.5em'></span> 0.25</td><td><b class='neg'>Avoid</b></td></tr>
-  </table></div>
-
-  <!-- Section 5: Market cycle -->
-  <h2 id='market-cycle'>5. Market cycle &amp; timing</h2>
-  <div class='takeaway'>
-    <b>Bottom line:</b> The market bottomed in late 2024 after a 13-quarter correction. 2025 was the first positive year since 2021. Current positioning: <b>early recovery</b>. Speculative froth has cleared; value-driven buyers dominate.
-  </div>
-
-  <div style='overflow-x:auto'><table>
-    <tr><th>Phase</th><th>Period</th><th>Direction</th><th>Driver</th></tr>
-    <tr><td>Mania</td><td>2020 &ndash; May 2022</td><td class='pos'>+70&ndash;400%</td><td>Pandemic stimulus, crypto wealth, lockdown spending</td></tr>
-    <tr><td>Crash</td><td>May 2022 &ndash; late 2024</td><td class='neg'>&minus;31% avg.</td><td>Rate hikes, crypto collapse, 13 consecutive quarterly declines</td></tr>
-    <tr><td>Stabilization</td><td>Late 2024 &ndash; present</td><td class='pos'>+8.2% (1yr)</td><td>Floor formation; Bloomberg Subdial50 +8% in 2025; first positive year since 2021</td></tr>
-  </table></div>
-
-  <p><b>Key indices as of early 2026:</b></p>
-  <ul>
-    <li>WatchCharts Overall Market Index: <b>+8.2%</b> year-over-year</li>
-    <li>Bloomberg Subdial50: <b>+8%</b> in 2025 (first positive year since 2021)</li>
-    <li>Knight Frank KFLII (watches): <b>+125.1%</b> over 10 years; <b>+52.7%</b> over 5 years</li>
-    <li>Global luxury watch market: <b>$62.35B</b> (2026), projected <b>8.5% CAGR</b> to 2034</li>
-  </ul>
-
-  <div class='caveat'>
-    <b>The inflation caveat.</b> The WatchCharts index is up ~20% over five years, but US CPI exceeded 25% in the same period. In <b>real (inflation-adjusted) terms</b>, most watches are cheaper today than five years ago. Watches are a diversifier, not an inflation hedge. Academic evidence (Weisskopf &amp; Masset, SSRN) confirms low correlation with stocks, bonds, and gold &mdash; diversification value is real, but expected returns trail equities (~5.7% nominal vs. 9.6&ndash;12.9% for the S&amp;P 500).
-  </div>
-
-  <!-- Section 6: Hidden costs -->
-  <h2 id='costs'>6. Hidden costs &amp; net returns</h2>
-  <div class='takeaway'>
-    <b>Bottom line:</b> Carrying costs consume 2&ndash;3% of a watch's value annually. Transaction costs of 11&ndash;30% on a round trip mean you need to hold 5+ years just to break even against the bid-ask spread.
-  </div>
-
-  <div style='overflow-x:auto'><table class='leaderboard sortable'>
-    <tr><th>Cost</th><th>Range</th><th>Frequency</th><th>Impact on 5% gross CAGR</th></tr>
-    <tr><td>Insurance</td><td>$500 &ndash; $5,000</td><td>Annual</td><td class='neg'>&minus;0.5&ndash;1.5 pp/yr</td></tr>
-    <tr><td>Servicing</td><td>$800 &ndash; $5,000</td><td>Every 5yr</td><td class='neg'>&minus;0.3&ndash;0.8 pp/yr (amortized)</td></tr>
-    <tr><td>Dealer buy spread</td><td>8 &ndash; 12% below market</td><td>At sale</td><td class='neg'>&minus;1.6&ndash;2.4 pp/yr (over 5yr hold)</td></tr>
-    <tr><td>Consignment / platform</td><td>6.5 &ndash; 30%</td><td>At sale</td><td class='neg'>&minus;1.3&ndash;6.0 pp/yr (over 5yr hold)</td></tr>
-  </table></div>
-
-  <p><b>Net return math:</b> A watch appreciating 5% nominally, costing 2% annually to hold, and 15% to sell over a 5-year hold delivers approximately <b>0% net real return</b> after inflation. The investment case only works for references appreciating at 8%+ CAGR &mdash; which limits the viable universe to a handful of top-3-brand steel sports models.</p>
-
-  <!-- Section 7: Buying rules -->
-  <h2 id='rules'>7. Buying rules</h2>
-  <div class='takeaway'>
-    <b>Bottom line:</b> Five rules that, if followed, eliminate most of the ways watch "investors" lose money.
-  </div>
-
-  <ol>
-    <li><b>Buy at retail from an AD whenever possible.</b> The entire Rolex investment thesis depends on the MSRP-to-secondary spread. At grey market prices, your upside is compressed.</li>
-    <li><b>Full set or walk away.</b> Box, papers, warranty card, hang tags. Incomplete sets are depreciation traps &mdash; they trade at a 15&ndash;40% discount to full sets.</li>
-    <li><b>Never polish, modify, or replace parts.</b> Original unpolished cases with untouched dials hold maximum value. A single aftermarket modification can cut value by 50%.</li>
-    <li><b>Budget 2&ndash;3% annually for carrying costs.</b> If you aren't budgeting for insurance and servicing, you aren't calculating your real return.</li>
-    <li><b>Hold for 10+ years.</b> Transaction costs wipe out ~3 years of appreciation. Short-term flipping is a losing game in the post-2022 market.</li>
-  </ol>
-
-  <!-- Caveats -->
-  <h2 id='caveats'>Caveats</h2>
-
-  <div class='caveat'>
-    <b>This is analysis, not investment advice.</b>
-    <ul style='margin-top: .4em; margin-bottom: 0;'>
-      <li><b>Survivorship bias.</b> The data overweights winners. For every Daytona that appreciated 358%, dozens of watches from other brands lost 30%+ and stopped being tracked.</li>
-      <li><b>No predictive model was trained.</b> Factor weights are inferred from observed correlations in secondary market data, not from a machine-learning model with out-of-sample validation. The ranking is directional, not calibrated.</li>
-      <li><b>Liquidity risk is real.</b> You cannot sell a $100K watch in seconds like a stock. During market stress (2022&ndash;2024), bid-ask spreads widened dramatically.</li>
-      <li><b>Condition is everything.</b> Our analysis assumes full-set, excellent-condition examples. Reality introduces variance that no factor model captures.</li>
-      <li><b>Macro dependency.</b> Watch prices are correlated with disposable income, interest rates, and risk appetite. A recession or rate shock could trigger another correction regardless of reference-level factors.</li>
-      <li><b>Past performance.</b> The 2018&ndash;2023 Rolex/Patek run may not repeat. Mean reversion is a possibility.</li>
-    </ul>
-  </div>
-
-  <p class='footnote'><b>Companion studies:</b> <a href='watches-to-buy.html'>What Watches to Buy</a> &middot; <a href='micro-indie-upside.html'>The Instant-Premium Playbook (micro-brands &amp; independents)</a></p>
-
-  <p class='footnote'>Data sources: WatchCharts market indices and model-level pricing (2025&ndash;2026); Bloomberg Subdial Watch Index (2025&ndash;2026); Knight Frank Luxury Investment Index (2024&ndash;2026); Bob's Watches 15-year Rolex sales data; Weisskopf &amp; Masset, "Time is Money" (SSRN); Kostlmeier &amp; Roder, "Diversification Benefits of Luxury Watches" (SSRN); manufacturer production estimates and AD waitlist reports. Prices reflect market conditions as of May 2026.</p>
-
-  </article>
-  </div>
-
-  <script>
-    // Sortable tables
-    document.querySelectorAll('table.sortable').forEach(table => {
-      const headers = table.querySelectorAll('th');
-      headers.forEach((th, colIdx) => {
-        th.addEventListener('click', () => {
-          const rows = Array.from(table.querySelectorAll('tr')).slice(1);
-          const isAsc = th.classList.contains('sort-asc');
-          headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
-          th.classList.add(isAsc ? 'sort-desc' : 'sort-asc');
-          rows.sort((a, b) => {
-            const aText = a.children[colIdx]?.textContent.trim() || '';
-            const bText = b.children[colIdx]?.textContent.trim() || '';
-            const aNum = parseFloat(aText.replace(/[^0-9.\-]/g, ''));
-            const bNum = parseFloat(bText.replace(/[^0-9.\-]/g, ''));
-            if (!isNaN(aNum) && !isNaN(bNum)) {
-              return isAsc ? bNum - aNum : aNum - bNum;
-            }
-            return isAsc ? bText.localeCompare(aText) : aText.localeCompare(bText);
-          });
-          const parent = rows[0]?.parentNode;
-          rows.forEach(r => parent.appendChild(r));
-        });
-      });
-    });
-
-    // Scroll-spy for TOC
-    const tocLinks = document.querySelectorAll('nav.toc a');
-    const ids = Array.from(tocLinks).map(a => a.getAttribute('href').slice(1));
-    const targets = ids.map(id => document.getElementById(id)).filter(Boolean);
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          tocLinks.forEach(a => a.classList.remove('active'));
-          const active = document.querySelector(`nav.toc a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-10% 0px -80% 0px' });
-    targets.forEach(t => observer.observe(t));
-  </script>
 </body>
 </html>
