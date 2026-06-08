@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Instant-Premium Playbook — Micro-Brands &amp; Independents</title>
+  <meta name="description" content="The watches worth more than you paid the moment you own them: supply-gated micro-brands and indie collaborations that carry an instant secondary-market premium. A multi-agent, adversarially-verified study of sub-$10k Tier-A picks, lottery-gated multiples, ungettable grails, and the asking-price ghosts to avoid.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Instant-Premium Playbook — Micro-Brands &amp; Independents">
+  <meta property="og:description" content="Watches worth more than you paid the moment you own them — verified ≥1.2x picks across micro-brands and independents the Big-Three study leaves out.">
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #181b23;
+      --surface-hover: #1e2230;
+      --border: #2a2e3a;
+      --text: #e4e4e7;
+      --text-muted: #9ca3af;
+      --accent: #c9a84c;
+      --accent-dim: #a38735;
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.12);
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.12);
+      --blue: #60a5fa;
+      --blue-dim: rgba(96,165,250,0.12);
+      --purple: #a78bfa;
+      --purple-dim: rgba(167,139,250,0.12);
+      --orange: #fb923c;
+      --orange-dim: rgba(251,146,60,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero {
+      position: relative;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      background: linear-gradient(180deg, #1a1d27 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero-nav {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-nav a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .hero-nav a:hover { border-color: var(--accent); color: var(--accent); }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    nav.back-link {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 0;
+    }
+
+    nav.back-link a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav.back-link a:hover { color: var(--accent); }
+
+    section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    h3 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+    h3:first-child { margin-top: 0; }
+    h4 { font-size: 0.95rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+
+    p { margin-bottom: 1rem; color: var(--text-muted); }
+    p:last-child { margin-bottom: 0; }
+
+    strong { color: var(--text); font-weight: 600; }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15rem 0.6rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .pill-green { background: var(--green-dim); color: var(--green); }
+    .pill-red { background: var(--red-dim); color: var(--red); }
+    .pill-blue { background: var(--blue-dim); color: var(--blue); }
+    .pill-purple { background: var(--purple-dim); color: var(--purple); }
+    .pill-orange { background: var(--orange-dim); color: var(--orange); }
+    .pill-gold { background: rgba(201,168,76,0.15); color: var(--accent); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .stat-card:hover { background: var(--surface-hover); }
+
+    .stat-value { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; }
+    .stat-value.positive { color: var(--green); }
+    .stat-value.negative { color: var(--red); }
+    .stat-value.neutral { color: var(--accent); }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.85rem;
+    }
+
+    thead th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 0.7rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      vertical-align: top;
+    }
+
+    tbody tr:hover { background: var(--surface-hover); }
+    tbody td:first-child { color: var(--text); font-weight: 500; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .table-wrap table { margin: 0; }
+    .table-wrap thead th { background: var(--surface); }
+
+    .up { color: var(--green); font-weight: 600; }
+    .down { color: var(--red); font-weight: 600; }
+    .flat { color: var(--blue); font-weight: 600; }
+    .premium { color: var(--accent); font-weight: 600; }
+
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout p { font-size: 0.95rem; }
+    .callout-green { border-left-color: var(--green); }
+    .callout-red { border-left-color: var(--red); }
+    .callout-blue { border-left-color: var(--blue); }
+    .callout-orange { border-left-color: var(--orange); }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .watch-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: all 0.2s;
+    }
+
+    .watch-card:hover { background: var(--surface-hover); border-color: var(--accent-dim); }
+
+    .watch-card-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.15rem; }
+    .watch-card-ref { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+
+    .watch-card-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+      padding: 0.3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .watch-card-row span:first-child { color: var(--text-muted); }
+    .watch-card-row span:last-child { font-weight: 600; text-align: right; }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(201,168,76,0.12);
+      color: var(--accent);
+      margin-right: 0.5rem;
+    }
+
+    .ghost-list, .skip-list { list-style: none; margin: 1.25rem 0; }
+
+    .ghost-list li, .skip-list li {
+      display: flex;
+      gap: 0.85rem;
+      padding: 0.85rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      font-size: 0.88rem;
+    }
+
+    .ghost-list li { border-left: 3px solid var(--red); }
+    .skip-list li { border-left: 3px solid var(--orange); }
+    .ghost-name, .skip-name { color: var(--text); font-weight: 600; }
+    .ghost-reason, .skip-reason { color: var(--text-muted); }
+
+    .checklist { list-style: none; margin: 1.5rem 0; }
+
+    .checklist li {
+      padding: 0.6rem 0;
+      padding-left: 1.75rem;
+      position: relative;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.85rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--accent);
+    }
+
+    .checklist li strong { color: var(--text); }
+
+    .sources { margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.9; }
+    .sources summary { cursor: pointer; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .sources ul { list-style: none; columns: 2; column-gap: 2rem; }
+    .sources li { break-inside: avoid; }
+
+    footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--border); }
+    footer p { font-size: 0.8rem; color: var(--text-muted); }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 4rem 1.5rem 3rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .tier-grid { grid-template-columns: 1fr; }
+      .sources ul { columns: 1; }
+      table { font-size: 0.78rem; }
+      thead th, tbody td { padding: 0.55rem 0.5rem; }
+      .hero-nav a { font-size: 0.72rem; padding: 0.35rem 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-link">
+    <a href="watches-to-buy.html">&larr; Back to the Big-Three Investment Guide</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-label">Companion Study &middot; The Other Thesis</div>
+    <h1>The Instant-Premium <span>Playbook</span></h1>
+    <p>Watches worth more than you paid <em>the moment you own them</em>. The Big-Three study says everything outside Rolex, Patek and AP trades at &minus;31% &mdash; true on average, but it misses a real exception: supply-gated micro-brands and indie collaborations that carry an instant secondary-market premium. This is that exception, verified.</p>
+    <div class="hero-nav">
+      <a href="#how">How this was built</a>
+      <a href="#tier-a">Tier A &mdash; buy &amp; flip</a>
+      <a href="#tier-b">Tier B &mdash; bigger multiples</a>
+      <a href="#lottery">The lottery play</a>
+      <a href="#grail">Grail tier</a>
+      <a href="#skip">Don't chase</a>
+      <a href="#ghosts">Asking-price ghosts</a>
+      <a href="#rules">Rules</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- How this was built -->
+    <section id="how">
+      <div class="section-label">Methodology</div>
+      <h2>How this list was built</h2>
+
+      <div class="callout callout-orange">
+        <p><strong>Pass&nbsp;5 in progress.</strong> A fifth multi-agent sweep is currently running across previously un-swept segments &mdash; emerging-region (Chinese / Asian) indies, complication specialists, German &amp; British makers, fresh 2026 drops, and sleeper discontinued references. Any picks that clear the realized-and-liquid&nbsp;&ge;1.2&times; bar will be merged into the tiers below; refuted claims will be added to the ghosts. Last updated June&nbsp;2026.</p>
+      </div>
+
+      <p>This page is the product of four multi-agent deep-research passes (with a fifth underway). Each pass fanned out dozens of parallel agents across WatchCharts, Chrono24, EveryWatch, StockX and primary auction records (Phillips, Sotheby's, Loupe This, Bezel), then put every standout claim through <strong>adversarial verification</strong> &mdash; a separate agent tasked with refuting it. The bar is deliberately hostile to hype.</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value neutral">~280</div>
+          <div class="stat-label">Candidate models investigated</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value positive">Realized</div>
+          <div class="stat-label">Sales only &mdash; not asking prices</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value negative">~40%</div>
+          <div class="stat-label">Of "big multiple" claims refuted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value neutral">≥1.2&times;</div>
+          <div class="stat-label">Minimum verified premium to qualify</div>
+        </div>
+      </div>
+
+      <div class="callout callout-blue">
+        <p><strong>Two filters did most of the work.</strong> First, <strong>realized&nbsp;&gt;&nbsp;asking</strong>: a single optimistic Chrono24 listing is not a sale. Second, <strong>liquidity matters</strong>: a 3&times; you can't exit is worth less than a 1.4&times; that trades every week. Most internet "this watch 10&times;'d" stories failed one or both &mdash; see <a href="#ghosts" style="color:var(--accent);">Asking-Price Ghosts</a>.</p>
+      </div>
+
+      <h3>The one structural insight</h3>
+      <p>Instant premiums in this segment come from <strong>artificial supply gating</strong>, not brand prestige. A lottery you can't enter, a drop that sells out in 90 seconds, a collab capped at 178 pieces &mdash; these force demand onto the resale market and manufacture the premium. Critical acclaim (a GPHG win, an auction record) amplifies it. Mere "hype" without a supply gate decays fast.</p>
+    </section>
+
+    <!-- Tier A -->
+    <section id="tier-a">
+      <div class="section-label">01 &mdash; The Actionable Shopping List</div>
+      <h2>Tier A &mdash; sub-$10k, liquid, verified &ge;1.2&times;</h2>
+      <p>The sweet spot: low buy-in, a premium that holds on <em>realized</em> sales, and a market liquid enough that you can actually both enter and exit. Ranked by gettability &times; multiple &mdash; a liquid 1.4&times; outranks an illiquid 2&times;.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Watch</th>
+              <th>Buy-in</th>
+              <th>Realized secondary</th>
+              <th>Multiple</th>
+              <th>Liquidity</th>
+              <th>How to get it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Louis Erard &times; Alain Silberstein &mdash; Le R&eacute;gulateur (2019 OG, LE 178)</td>
+              <td>~CHF 2,900</td>
+              <td>~CHF 7,560 realized</td>
+              <td class="up">~2.5&times;</td>
+              <td><span class="pill pill-green">Liquid</span></td>
+              <td>Secondary (Chrono24 / Phillips). Black PVD scarcest</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Studio Underd0g &mdash; Watermel0n (01Series, ST1901)</td>
+              <td>~$675&ndash;750</td>
+              <td>~$985&ndash;1,350 realized</td>
+              <td class="up">~1.6&ndash;1.9&times;</td>
+              <td><span class="pill pill-green">Liquid</span></td>
+              <td>Drop queue / AD, or secondary. 01Series only</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Massena LAB &times; Habring&sup2; &mdash; Erwin LAB01 Bronze (50 pcs)</td>
+              <td>~$5,995</td>
+              <td>$10,253 / $11,970 (#01)</td>
+              <td class="up">~1.7&ndash;2&times;</td>
+              <td><span class="pill pill-blue">Moderate</span></td>
+              <td>Secondary (Phillips / Loupe This)</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Kurono Tokyo &mdash; limited editions</td>
+              <td>~$2,000</td>
+              <td>$3,500&ndash;4,700</td>
+              <td class="up">~1.75&ndash;2.35&times;</td>
+              <td><span class="pill pill-blue">Moderate</span></td>
+              <td>Timed drop, 1-per-customer. Be online at drop</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Louis Erard &times; Silberstein &mdash; R&eacute;gulateur II Titanium (2021)</td>
+              <td>~CHF 3,500</td>
+              <td>~$5,650 clean comp</td>
+              <td class="up">~1.3&ndash;1.6&times;</td>
+              <td><span class="pill pill-green">Liquid</span></td>
+              <td>Secondary &mdash; most-traded of the LE&times;AS regs</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Anoma &mdash; A1</td>
+              <td>~$2,800</td>
+              <td>$3,740</td>
+              <td class="up">~1.3&times;</td>
+              <td><span class="pill pill-blue">Moderate</span></td>
+              <td>Drop / quick secondary</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Two special cases worth their own note</h3>
+      <div class="tier-grid">
+        <div class="watch-card">
+          <div class="watch-card-name">G-Shock &times; Hodinkee &times; John Mayer "SK-5"</div>
+          <div class="watch-card-ref">DW6900JM20-8 &mdash; 2020 OG only &middot; the flip vehicle</div>
+          <div class="watch-card-row"><span>Retail</span><span>$180</span></div>
+          <div class="watch-card-row"><span>StockX realized</span><span class="premium">~$620&ndash;965</span></div>
+          <div class="watch-card-row"><span>Multiple</span><span class="up">~3.5&ndash;4.4&times;</span></div>
+          <div class="watch-card-row"><span>Liquidity</span><span class="flat">Liquid (StockX)</span></div>
+          <div class="watch-card-row"><span>Signal</span><span><span class="pill pill-green">Best $/multiple</span></span></div>
+        </div>
+        <div class="watch-card">
+          <div class="watch-card-name">MoonSwatch Snoopy Moonshine Gold</div>
+          <div class="watch-card-ref">2025 drops &mdash; drop-only, decays fast</div>
+          <div class="watch-card-row"><span>Retail</span><span>~$450</span></div>
+          <div class="watch-card-row"><span>Launch-month realized</span><span class="premium">~$800+</span></div>
+          <div class="watch-card-row"><span>Multiple</span><span class="up">~1.8&times;</span></div>
+          <div class="watch-card-row"><span>Liquidity</span><span class="flat">Moderate, time-decaying</span></div>
+          <div class="watch-card-row"><span>Signal</span><span><span class="pill pill-orange">Retail drop only</span></span></div>
+        </div>
+      </div>
+
+      <div class="callout callout-green">
+        <p><strong>The anchor pick:</strong> the <strong>Louis Erard &times; Silberstein OG R&eacute;gulateur</strong> is the only watch in all four passes that is verified <em>and</em> liquid on both sides at a ~$3k entry &mdash; ~2.5&times; on real Phillips results, regular Chrono24 supply. If you buy one thing from this page, it's this.</p>
+      </div>
+      <div class="callout callout-orange">
+        <p><strong>Two hard rules for the special cases.</strong> The G-Shock multiple holds <em>only</em> for the <strong>2020 OG (JM20-8)</strong> &mdash; the 2021 and 2022 sequels were refuted as asking-inflated. And the MoonSwatch only works bought <strong>at retail in the drop and flipped within days</strong>; buying it at $800 on secondary is buying the top.</p>
+      </div>
+    </section>
+
+    <!-- Tier B -->
+    <section id="tier-b">
+      <div class="section-label">02 &mdash; Bigger Multiples, Harder Entry</div>
+      <h2>Tier B &mdash; pay secondary or wait years</h2>
+      <p>These clear your 1.2&times; bar by a wide margin, but you either win a lottery, sit on a multi-year waitlist, or pay a dealer the premium up front. Liquidity is thinner &mdash; treat them as patient holds, not flips.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Watch</th>
+              <th>Buy-in</th>
+              <th>Realized secondary</th>
+              <th>Multiple</th>
+              <th>The catch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Otsuka Lotec No.&nbsp;6</td>
+              <td>~$2,800&ndash;3,200 (lottery)</td>
+              <td>$7k&ndash;12k common (range $6,101&ndash;60,365)</td>
+              <td class="up">~2.5&ndash;4&times;</td>
+              <td>Japan-only lottery to capture; else you pay it</td>
+            </tr>
+            <tr>
+              <td>Kikuchi Nakagawa Murakumo</td>
+              <td>~$23,000</td>
+              <td>CHF 64,770 auction / $44&ndash;50k dealer</td>
+              <td class="up">~3.1&times; / ~2&times;</td>
+              <td>8&ndash;10yr waitlist; realistic path is dealer at ~2&times;</td>
+            </tr>
+            <tr>
+              <td>Sylvain Pinaud Origine</td>
+              <td>~CHF 65,000</td>
+              <td>CHF 165,100</td>
+              <td class="up">~2.5&times;</td>
+              <td>~12/yr allocation; thin, auction-dependent exit</td>
+            </tr>
+            <tr>
+              <td>Naoya Hida &amp; Co.</td>
+              <td>~$12&ndash;24k</td>
+              <td>$32&ndash;41k &mdash; every lot above estimate</td>
+              <td class="up">~2&times;+</td>
+              <td>Waitlist; the most <em>reliable</em> in the set</td>
+            </tr>
+            <tr>
+              <td>Ming 17.06 / 17.06 Copper</td>
+              <td>CHF 1,250 (~$1,350)</td>
+              <td>median ~$3,400&ndash;3,600 (51 sold)</td>
+              <td class="up">~2.2&ndash;2.6&times;</td>
+              <td>Secondary only; moderate liquidity, patient entry</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p><strong>Best standard-production multiple found:</strong> a <em>regular-production</em> Kikuchi Nakagawa Murakumo realized CHF 64,770 (~3.1&times;) at Phillips, explicitly catalogued as standard &mdash; not a unique or charity piece. Naoya Hida is the reliability champion: every recorded auction lot cleared estimate.</p>
+      </div>
+    </section>
+
+    <!-- Lottery play -->
+    <section id="lottery">
+      <div class="section-label">03 &mdash; The Highest Gettable Multiple on a Small Buy-In</div>
+      <h2>The Otsuka Lotec lottery play</h2>
+      <p>Across every pass, nothing beat the Otsuka Lotec No.&nbsp;6 for multiple-relative-to-buy-in: ~$3,000 in, commonly $7k&ndash;$12k out. The premium is not "hype" &mdash; it is a deliberate, structural supply gate.</p>
+
+      <div class="tier-grid">
+        <div class="watch-card">
+          <div class="watch-card-name">The gate</div>
+          <div class="watch-card-ref">Why the premium exists</div>
+          <div class="watch-card-row"><span>Output</span><span>&lt;200 / year</span></div>
+          <div class="watch-card-row"><span>Maker</span><span>Jiro Katayama</span></div>
+          <div class="watch-card-row"><span>Allocation</span><span>Online lottery, every few months</span></div>
+          <div class="watch-card-row"><span>Eligibility</span><span class="down">JP card + JP address</span></div>
+          <div class="watch-card-row"><span>Overseas shipping</span><span class="down">None</span></div>
+        </div>
+        <div class="watch-card">
+          <div class="watch-card-name">The play</div>
+          <div class="watch-card-ref">How to actually capture it</div>
+          <div class="watch-card-row"><span>To win at retail</span><span>Enter the JP lottery</span></div>
+          <div class="watch-card-row"><span>If non-Japanese</span><span>JP proxy / friend</span></div>
+          <div class="watch-card-row"><span>Buying secondary</span><span class="down">You pay the premium</span></div>
+          <div class="watch-card-row"><span>Upmarket option</span><span>No.&nbsp;8 (JPY 990,000)</span></div>
+          <div class="watch-card-row"><span>Signal</span><span><span class="pill pill-green">Win = instant profit</span></span></div>
+        </div>
+      </div>
+
+      <div class="callout callout-blue">
+        <p>Every non-Japanese buyer on earth is forced onto the resale market &mdash; which <em>is</em> the premium. The only way to capture rather than pay it is to win the Japan-restricted lottery, in practice via a trusted Japan-based proxy with a local card and address. The higher-end No.&nbsp;8 now runs the same raffle model.</p>
+      </div>
+    </section>
+
+    <!-- Grail tier -->
+    <section id="grail">
+      <div class="section-label">04 &mdash; Real, But Not a Plan</div>
+      <h2>The grail tier: huge multiples you can't get</h2>
+      <p>These are the eye-watering numbers &mdash; and they are all unique prototypes, #1-serial trophies, or charity lots sold at record auctions. Verified as real; useless as a strategy. There's no retail channel and no repeatable exit. Listed so you know the ceiling and don't underwrite a plan on it.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Watch</th>
+              <th>Retail / buy-in</th>
+              <th>Auction result</th>
+              <th>Multiple</th>
+              <th>Why ungettable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rexhep Rexhepi &mdash; Chronom&egrave;tre Contemporain I</td>
+              <td>&lt;$70,000</td>
+              <td>$924,000 (Phillips)</td>
+              <td class="premium">~13&times;</td>
+              <td>Closed waitlist; auction-only liquidity</td>
+            </tr>
+            <tr>
+              <td>Th&eacute;o Auffret &mdash; Giverny "Blue Train" prototype</td>
+              <td>~EUR 70,000 (serial)</td>
+              <td>CHF 571,500 (Phillips)</td>
+              <td class="premium">~8&times;</td>
+              <td>Unique prototype; ~5&ndash;10 serial pieces/yr</td>
+            </tr>
+            <tr>
+              <td>Credor Eichi II &mdash; GBLR999 Platinum #1</td>
+              <td>~$50,000</td>
+              <td>$228,473 (Phillips)</td>
+              <td class="premium">~4.5&times;</td>
+              <td>Provenance lot; standard Eichi II trades ~1&times;</td>
+            </tr>
+            <tr>
+              <td>Hajime Asaoka &mdash; Tourbillon (Pura / #1)</td>
+              <td>~$87.5k&ndash;120k</td>
+              <td>$348k&ndash;362k (Phillips)</td>
+              <td class="premium">~3&ndash;4&times;</td>
+              <td>No open order book; six-figure entry</td>
+            </tr>
+            <tr>
+              <td>Berneron &mdash; Mirage (white gold)</td>
+              <td>est. CHF 40&ndash;80k</td>
+              <td>CHF 241,300 (Phillips)</td>
+              <td class="premium">~3&times; high est.</td>
+              <td>Hottest closed waitlist in indie watchmaking</td>
+            </tr>
+            <tr>
+              <td>Simon Brette &mdash; Chronom&egrave;tre Artisans (Ti)</td>
+              <td>est. CHF 60&ndash;120k</td>
+              <td>CHF 203,200 (Phillips)</td>
+              <td class="premium">very high</td>
+              <td>Tiny output; closed waitlist</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Skip -->
+    <section id="skip">
+      <div class="section-label">05 &mdash; Stop Chasing These</div>
+      <h2>Don't chase &mdash; trades at or below retail</h2>
+      <p>Popular, beautiful, often sold-out &mdash; but verified to clear <strong>under</strong> the 1.2&times; bar on realized data. Buy these to wear, never to profit.</p>
+
+      <ul class="skip-list">
+        <li><div><span class="skip-name">Ressence</span> &mdash; <span class="skip-reason">Type 1/Slim ~0.65&ndash;0.8&times;, Type 5 ~0.7&ndash;0.78&times;, Type 3 ~0.95&times;. All below retail.</span></div></li>
+        <li><div><span class="skip-name">Czapek Antarctique</span> &mdash; <span class="skip-reason">Standard steel 0.7&ndash;1.0&times;; even Salmon/Glacier LEs only ~1.2&ndash;1.3&times; realized.</span></div></li>
+        <li><div><span class="skip-name">Grand Seiko</span> &mdash; <span class="skip-reason">SBGW253 ~0.8&times;; Kodo buy-back as low as 0.27&times;.</span></div></li>
+        <li><div><span class="skip-name">Tudor</span> &mdash; <span class="skip-reason">BB58 ~0.9&times;, BB58 GMT "Coke" ~0.75&times;, Pelagos FXD ~0.7&times;. All under retail.</span></div></li>
+        <li><div><span class="skip-name">H. Moser</span> &mdash; <span class="skip-reason">Streamliner / Pioneer Centre Seconds ~0.9&ndash;1.0&times;.</span></div></li>
+        <li><div><span class="skip-name">anOrdain</span> &mdash; <span class="skip-reason">Model 1/2 only ~1.1&ndash;1.5&times; realized &mdash; below the bar at the low end.</span></div></li>
+        <li><div><span class="skip-name">Affordable divers</span> &mdash; <span class="skip-reason">Nodus, Formex, Traska, Lorier core, Serica: broadly 0.6&ndash;1.0&times;. LEs rarely hold.</span></div></li>
+        <li><div><span class="skip-name">Studio Underd0g 02Series "Field"</span> &mdash; <span class="skip-reason">Trades ~0.86&ndash;0.97&times; on real P2P data. Stay on the 01Series Watermel0n.</span></div></li>
+        <li><div><span class="skip-name">Furlan Marri</span> &mdash; <span class="skip-reason">Big-multiple lore refuted; modest at best. Buy to enjoy.</span></div></li>
+      </ul>
+    </section>
+
+    <!-- Ghosts -->
+    <section id="ghosts">
+      <div class="section-label">06 &mdash; Don't Believe the Hype</div>
+      <h2>Asking-price ghosts &mdash; refuted claims</h2>
+      <p>These are the internet's favorite "this watch multiplied" stories. Every one was killed in verification &mdash; almost all are asking prices misread as sales, charity/unique outliers, or wrong cost bases. If someone quotes these at you, they're quoting a listing, not a transaction.</p>
+
+      <ul class="ghost-list">
+        <li><div><span class="ghost-name">Furlan Marri "~10&times;"</span> &mdash; <span class="ghost-reason">Refuted. Buy-in was ~$330, but the big resale multiple does not hold on realized sales.</span></div></li>
+        <li><div><span class="ghost-name">Autodromo Monoposto "~4.5&times;"</span> &mdash; <span class="ghost-reason">That $4,000 was an archive-fresh, book-bundled car-auction lot. Normal examples sell $375&ndash;500 &mdash; below retail.</span></div></li>
+        <li><div><span class="ghost-name">G-Shock &times; BAPE GA-110 "~2.5&times;"</span> &mdash; <span class="ghost-reason">Fatal cost-basis error: that's 2018-owner appreciation. A buyer today nets ~1.0&ndash;1.1&times; &mdash; below the bar.</span></div></li>
+        <li><div><span class="ghost-name">Louis Erard &times; Vianney Halter "~2.4&times;"</span> &mdash; <span class="ghost-reason">Stale May-2021 bubble prints. A recent Ineichen lot at ~1.3&times; failed to sell; current realized ~0.9&ndash;1.4&times;.</span></div></li>
+        <li><div><span class="ghost-name">Studio Underd0g Manhattan "2.3&times;"</span> &mdash; <span class="ghost-reason">Refuted &mdash; asking-price artifact, not a realized sale.</span></div></li>
+        <li><div><span class="ghost-name">MB&amp;F M.A.D.1 "~500%"</span> &mdash; <span class="ghost-reason">Refuted; prior M.A.D. editions "2&ndash;3&times;" also unverified.</span></div></li>
+        <li><div><span class="ghost-name">Sartory Billard SB04 "~3&times;"</span> &mdash; <span class="ghost-reason">Charity unique lot, and mislabeled material. Normal SB04s ~1&times;.</span></div></li>
+        <li><div><span class="ghost-name">Halios Seaforth Bronze "2&times;" &middot; Unimatic &times; Hodinkee "2&times;" &middot; MoonSwatch Sturgeon "1.75&times;"</span> &mdash; <span class="ghost-reason">All asking-price artifacts; realized data sits near retail.</span></div></li>
+        <li><div><span class="ghost-name">Ming 17.01 "3.5&times;"</span> &mdash; <span class="ghost-reason">One optimistic Bezel ask. Real realized ~1.6&times; and thin.</span></div></li>
+      </ul>
+    </section>
+
+    <!-- Rules -->
+    <section id="rules">
+      <div class="section-label">07 &mdash; The Segment's Own Rules</div>
+      <h2>Buying rules for instant-premium watches</h2>
+      <p>The Big-Three guide says "buy at retail, full set, hold 10 years." This segment plays by different rules &mdash; the upside is at acquisition, not over a decade.</p>
+
+      <ul class="checklist">
+        <li><strong>The whole game is allocation, not capital.</strong> The premium is the gap between the gated retail price and the open market. If you buy on secondary, you're paying it, not capturing it. Win the lottery, be at the drop, or get on the waitlist.</li>
+        <li><strong>Realized, never asking.</strong> A Chrono24 listing is a hope, not a price. Use StockX last-sale, WatchCharts marketplace P2P, and auction hammers. Discount every "for sale" number.</li>
+        <li><strong>Liquidity is half the trade.</strong> A premium you can't exit is paper. Favor names with regular bid/ask (Louis Erard&times;AS, Kurono, Ming, the SK-5) over trophy indies that surface once a year.</li>
+        <li><strong>Supply gate &gt; hype.</strong> A lottery, a 178-piece cap, a 90-second sell-out is durable. Generic buzz without a gate decays &mdash; the affordable-diver graveyard is full of it.</li>
+        <li><strong>Drop pieces: flip fast.</strong> MoonSwatch / G-Shock-style premiums are launch-window phenomena. Sell within days; the broad market reverts to retail.</li>
+        <li><strong>Mind the spread.</strong> Sub-$1k flips look great as multiples but small in dollars after fees and shipping. Size the play to the absolute profit, not just the &times;.</li>
+      </ul>
+
+      <div class="callout callout-green">
+        <p><strong>The one-line version:</strong> outside Rolex/Patek/AP, instant upside is real but narrow &mdash; it lives in lottery-gated micros (Otsuka Lotec) and a handful of liquid indie collabs (Louis Erard &times; Silberstein, Kurono, Massena LAB, Studio Underd0g Watermel0n). Everything else is either ungettable, modest, or a ghost.</p>
+      </div>
+    </section>
+
+    <!-- Sources -->
+    <section>
+      <div class="section-label">Sources</div>
+      <h2>References &amp; data</h2>
+      <p>Findings rest on primary auction records and realized-sale aggregators; promotional-blog figures were used only as leads and verified against transaction data. Several widely-cited multiples were explicitly refuted (see above).</p>
+      <details class="sources">
+        <summary>View key sources</summary>
+        <ul>
+          <li>Phillips &mdash; primary lot records (Geneva, Hong Kong, New York auctions, 2023&ndash;2026)</li>
+          <li>EveryWatch &mdash; realized-sale aggregation across auction houses</li>
+          <li>WatchCharts &mdash; marketplace P2P pricing, value-retention, risk scores</li>
+          <li>Chrono24 &mdash; listing data (treated as asking, not realized)</li>
+          <li>StockX &mdash; last-sale data for Swatch / G-Shock collabs</li>
+          <li>Loupe This &amp; Bezel &mdash; in-house authenticated auction results</li>
+          <li>Monochrome Watches &mdash; Otsuka Lotec, Kurono, Naoya Hida reporting</li>
+          <li>SJX Watches &mdash; secondary-market analysis; Rexhepi record price</li>
+          <li>Provenance Watches &mdash; Otsuka Lotec dealer listings &amp; lottery mechanics</li>
+          <li>Hodinkee, Teddy Baldassarre, Time+Tide &mdash; brand/collab background (verified against transaction data)</li>
+        </ul>
+      </details>
+      <p style="margin-top:1.25rem; font-size:0.8rem;">Compiled June 2026 from four multi-agent deep-research passes with adversarial verification. Prices reflect 2025&ndash;2026 market conditions and move with FX and hype cycles. For informational purposes only &mdash; not financial advice.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Companion to the Big-Three investment study.<br>
+      <a href="index.html">Inflation Hedge Study</a> &middot; <a href="watches-to-buy.html">Full Investment Analysis</a> &middot; <a href="buy-now.html">Buy-Now Guide</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
