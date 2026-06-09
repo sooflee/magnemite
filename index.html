@@ -52,6 +52,8 @@
     th, td { padding: .5em .85em; border-bottom: 1px solid #e7e3da; text-align: left; font-size: .88em;
               font-variant-numeric: tabular-nums; }
     th { background: #efece4; font-weight: 700; }
+    td a { color: inherit; text-decoration: none; border-bottom: 1px dotted #bcae93; }
+    td a:hover { color: #2c5282; border-bottom-color: #2c5282; }
     table.sortable th { cursor: pointer; user-select: none; position: relative; padding-right: 1.4em; }
     table.sortable th::after { content: '\2195'; position: absolute; right: .4em; color: #aaa; font-size: .85em; }
     table.sortable th.sort-asc::after { content: '\25B2'; color: #2c5282; }
@@ -600,24 +602,39 @@
       host.innerHTML = s;
     })();
 
-    // Trend split: stacked bar of rising / flat / cooling across all watch tables
+    // Trend split: stacked bar of rising / flat / cooling; hover a segment for the watch list
     (function () {
       const host = document.getElementById('trendsplit');
       if (!host) return;
-      const c = { up: 0, flat: 0, down: 0, unknown: 0 };
+      const names = { up: [], flat: [], down: [], unknown: [] };
       ['#accessible-table', '#verified-table', '#established-table'].forEach(sel => {
         const t = document.querySelector(sel); if (!t) return;
         Array.from(t.querySelectorAll('tr')).slice(1).forEach(r => {
           const tr = (r.dataset.trend || 'unknown').toLowerCase();
-          if (c[tr] != null) c[tr]++;
+          if (names[tr]) names[tr].push((r.children[0].textContent || '').trim());
         });
       });
-      const tot = c.up + c.flat + c.down + c.unknown || 1;
-      const seg = (n, cls, lbl) => n ? '<span class="' + cls + '" style="width:' + (n / tot * 100).toFixed(1) + '%">' + n + ' ' + lbl + '</span>' : '';
+      const tot = names.up.length + names.flat.length + names.down.length + names.unknown.length || 1;
+      const seg = (arr, cls, lbl) => arr.length
+        ? '<span class="' + cls + '" style="width:' + (arr.length / tot * 100).toFixed(1) + '%" title="' +
+          lbl + ' (' + arr.length + '): ' + arr.join(', ').replace(/"/g, '&quot;') + '">' + arr.length + ' ' + lbl + '</span>'
+        : '';
       host.innerHTML = '<div class="stackbar">' +
-        seg(c.up, 'stack-up', '▲ rising') + seg(c.flat, 'stack-flat', '→ flat') +
-        seg(c.down, 'stack-down', '▼ cooling') + seg(c.unknown, 'stack-unk', '·') + '</div>';
+        seg(names.up, 'stack-up', '▲ rising') + seg(names.flat, 'stack-flat', '→ flat') +
+        seg(names.down, 'stack-down', '▼ cooling') + seg(names.unknown, 'stack-unk', '· n/a') + '</div>';
     })();
+
+    // Make every watch name a link to the watch (Chrono24 search)
+    ['#accessible-table', '#verified-table', '#established-table'].forEach(sel => {
+      const t = document.querySelector(sel); if (!t) return;
+      Array.from(t.querySelectorAll('tr')).slice(1).forEach(r => {
+        const cell = r.children[0];
+        if (!cell || cell.querySelector('a')) return;
+        const name = (cell.textContent || '').trim();
+        const q = encodeURIComponent(name.replace(/\([^)]*\)/g, '').replace(/["']/g, '').trim() + ' watch');
+        cell.innerHTML = '<a href="https://www.chrono24.com/search/index.htm?query=' + q + '" target="_blank" rel="noopener">' + cell.innerHTML + '</a>';
+      });
+    });
 
     // Text-size control (persisted)
     (function () {
