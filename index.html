@@ -347,12 +347,13 @@
         g.dataset.attr = attr;
         g.dataset.target = sel;
         g.innerHTML = '<span>' + lbl + ':</span>';
+        const defVal = (attr === 'status' && vals.includes('In production')) ? 'In production' : '';
         ['', ...vals].forEach(v => {
           const b = document.createElement('button');
           b.type = 'button';
           b.textContent = v || 'All';
           b.dataset.val = v;
-          if (v === '') b.className = 'active';
+          if (v === defVal) b.className = 'active';
           g.appendChild(b);
         });
         if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(g, anchor.nextSibling);
@@ -385,6 +386,7 @@
         btn.classList.add('active');
         apply();
       }));
+      apply();
     });
 
     // Label each cell with its column header (drives the mobile card layout)
