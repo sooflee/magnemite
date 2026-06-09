@@ -534,6 +534,7 @@
     function difficulty(text) {
       const t = (text || '').toLowerCase();
       if (/free.*raffle/.test(t)) return [1, 'Easy'];
+      if (/near-unique|auction-record|boutique only|~8 pieces|~9 made|~10 made/.test(t)) return [6, 'Almost impossible'];
       if (/relationship|closed|near-unique|boutique/.test(t)) return [5, 'Very hard'];
       if (/waitlist|order[- ]book/.test(t)) return [4, 'Hard'];
       if (/application|subscription|proxy|japan/.test(t)) return [3, 'Hard-ish'];
