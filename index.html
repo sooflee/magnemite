@@ -11,34 +11,8 @@
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
             margin: 0; color: #1a1a1a; line-height: 1.55; }
-    .layout { display: grid;
-               grid-template-columns: 14em minmax(0, 1000px);
-               gap: 2em; max-width: 1300px; margin: 2em auto; padding: 0 1em; }
-    nav.toc { position: sticky; top: 2em; align-self: start;
-               font-size: .88em; max-height: calc(100vh - 4em);
-               overflow-y: auto; padding-right: .5em; }
-    nav.toc h4 { margin: 0 0 .6em 0; color: #2c5282; font-size: .82em;
-                  text-transform: uppercase; letter-spacing: .05em; }
-    nav.toc ul { list-style: none; padding: 0; margin: 0; }
-    nav.toc li { margin: .35em 0; }
-    nav.toc a { color: #444; text-decoration: none;
-                 border-left: 2px solid transparent; padding-left: .6em;
-                 display: block; line-height: 1.35; }
-    nav.toc a:hover { color: #2c5282; }
-    nav.toc a.active { color: #2c5282; font-weight: 600; border-left-color: #2c5282; }
+    .layout { max-width: 800px; margin: 2em auto; padding: 0 1.2em; }
     article { min-width: 0; }
-    @media (max-width: 1000px) {
-      .layout { grid-template-columns: 1fr; max-width: 1000px; }
-      nav.toc { display: none; }
-    }
-    details.toc-mobile { display: none; margin: 1em 0;
-                          background: #f8f9fb; border: 1px solid #e0e6ef;
-                          padding: .6em 1em; border-radius: 4px; }
-    details.toc-mobile summary { cursor: pointer; font-weight: 600; color: #2c5282; }
-    details.toc-mobile ul { list-style: none; padding-left: 0; margin: .8em 0 .2em 0; }
-    details.toc-mobile li { margin: .3em 0; }
-    details.toc-mobile a { color: #2c5282; text-decoration: none; }
-    @media (max-width: 1000px) { details.toc-mobile { display: block; } }
     h1 { border-bottom: 2px solid #1a1a1a; padding-bottom: .3em; margin-bottom: .2em;
           font-size: 1.5em; line-height: 1.2; }
     h2 { margin-top: 2.2em; color: #2c5282; padding-bottom: .2em;
@@ -107,34 +81,7 @@
 </head>
 <body>
   <div class='layout'>
-  <nav class='toc' aria-label='Section navigation'>
-    <h4>On this page</h4>
-    <ul>
-      <li><a href='#summary'>Summary</a></li>
-      <li><a href='#factors'>1. What predicts value retention</a></li>
-      <li><a href='#accessible'>2. Lotteries, drops &amp; waitlists</a></li>
-      <li><a href='#established'>3. The established brands</a></li>
-      <li><a href='#caution'>4. What to treat with caution</a></li>
-      <li><a href='#costs'>5. Costs &amp; net returns</a></li>
-      <li><a href='#principles'>6. Buying principles</a></li>
-      <li><a href='#caveats'>Caveats</a></li>
-    </ul>
-  </nav>
   <article>
-
-  <details class='toc-mobile'>
-    <summary>Jump to section &#x25BE;</summary>
-    <ul>
-      <li><a href='#summary'>Summary</a></li>
-      <li><a href='#factors'>1. What predicts value retention</a></li>
-      <li><a href='#accessible'>2. Lotteries, drops &amp; waitlists</a></li>
-      <li><a href='#established'>3. The established brands</a></li>
-      <li><a href='#caution'>4. What to treat with caution</a></li>
-      <li><a href='#costs'>5. Costs &amp; net returns</a></li>
-      <li><a href='#principles'>6. Buying principles</a></li>
-      <li><a href='#caveats'>Caveats</a></li>
-    </ul>
-  </details>
 
   <h1>Watches that beat retail: scarcity, allocation, and the secondary market</h1>
   <p class='meta'>~8 min read &middot; compiled June 2026 &middot; data from WatchCharts, Chrono24, StockX, and auction records (Phillips, Christie's, Sotheby's, Loupe This)</p>
@@ -337,20 +284,6 @@
       });
     });
 
-    // Scroll-spy for TOC
-    const tocLinks = document.querySelectorAll('nav.toc a');
-    const ids = Array.from(tocLinks).map(a => a.getAttribute('href').slice(1));
-    const targets = ids.map(id => document.getElementById(id)).filter(Boolean);
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          tocLinks.forEach(a => a.classList.remove('active'));
-          const active = document.querySelector(`nav.toc a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-10% 0px -80% 0px' });
-    targets.forEach(t => observer.observe(t));
   </script>
 </body>
 </html>
