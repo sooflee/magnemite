@@ -12,11 +12,18 @@
     body { font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, Cambria, 'Times New Roman', serif;
             margin: 0; color: #262320; line-height: 1.7; font-size: 18px; background: #fcfbf8;
             -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-    .layout { max-width: 860px; margin: 2.4em auto; padding: 0 1.3em; }
+    .layout { max-width: 780px; margin: 2.4em auto; padding: 0 1.3em; }
     article { min-width: 0; }
-    /* keep prose to a comfortable measure; let tables use the full width */
-    article > p, article > ul, article > ol, .summary, .takeaway, .caveat, .meta, .dek, .footnote, .price-filter { max-width: 680px; }
     .dek { font-size: 1.18em; line-height: 1.5; color: #5a544c; font-style: italic; margin: .15em 0 1em; }
+    .textsize { display: flex; align-items: center; gap: .4em; font-size: .8em; color: #777; margin: 0 0 1.8em; flex-wrap: wrap; }
+    .textsize button { font: inherit; padding: .2em .65em; border: 1px solid #d8d3c8; background: #fff;
+                        color: #2c5282; border-radius: 100px; cursor: pointer; }
+    .textsize button.active { background: #2c5282; color: #fff; border-color: #2c5282; }
+    .statgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+                 background: #e7e3da; border: 1px solid #e7e3da; border-radius: 8px; overflow: hidden; margin: 1.6em 0 2em; }
+    .statcard { background: #fff; padding: 1em 1.1em; }
+    .statcard .num { font-size: 1.7em; font-weight: 700; color: #2c5282; line-height: 1.05; }
+    .statcard .lbl { font-size: .78em; color: #5a544c; margin-top: .35em; line-height: 1.35; }
     h1 { border-bottom: 2px solid #1a1a1a; padding-bottom: .3em; margin-bottom: .2em;
           font-size: 1.5em; line-height: 1.2; }
     h2 { margin-top: 2.6em; color: #2c5282; padding-bottom: .25em; font-size: 1.4em;
@@ -100,6 +107,12 @@
   <h1>Watches that beat retail: scarcity, allocation, and the secondary market</h1>
   <p class='dek'>Most watches lose money. The ones that don't share a single trait &mdash; supply allocated below demand, by lottery, drop, or waitlist &mdash; and the premium belongs to whoever gets in at retail.</p>
   <p class='meta'>~8 min read &middot; compiled June 2026 &middot; data from WatchCharts, Chrono24, StockX, and auction records (Phillips, Christie's, Sotheby's, Loupe This)</p>
+  <div class='textsize' aria-label='Text size'>
+    <span>Text size</span>
+    <button type='button' data-size='16'>Small</button>
+    <button type='button' data-size='18' class='active'>Default</button>
+    <button type='button' data-size='20'>Large</button>
+  </div>
 
   <div class='summary' id='summary'>
     <h3>Summary</h3>
@@ -109,6 +122,13 @@
       <li>This allocation route is the one <b>accessible at normal prices</b>: a handful of sub-$10,000 pieces resell at roughly <b>1.3&ndash;4.4&times;</b> retail. The same mechanism runs up to six figures, but liquidity thins sharply, and most micro-brands resell <i>below</i> retail.</li>
       <li>Transaction costs (~11&ndash;30% round-trip) and thin liquidity offset much of the gain. Watches are best understood as durable goods that <i>may</i> hold value, not as investments.</li>
     </ul>
+  </div>
+
+  <div class='statgrid'>
+    <div class='statcard'><div class='num'>&minus;31%</div><div class='lbl'>Avg. resale vs. retail outside Rolex / Patek / AP</div></div>
+    <div class='statcard'><div class='num'>~2.5&times;</div><div class='lbl'>Best gettable multiple (Louis Erard &times; Silberstein)</div></div>
+    <div class='statcard'><div class='num'>48</div><div class='lbl'>Watches verified genuinely above retail</div></div>
+    <div class='statcard'><div class='num'>11&ndash;30%</div><div class='lbl'>Round-trip cost to buy and resell</div></div>
   </div>
 
   <h2 id='factors'>1. What predicts value retention</h2>
@@ -499,6 +519,23 @@
       const lastTh = tbl.querySelector('tr').lastElementChild;
       if (lastTh) lastTh.classList.add('sort-asc');
     });
+
+    // Text-size control (persisted)
+    (function () {
+      const ts = document.querySelector('.textsize');
+      if (!ts) return;
+      let saved = null; try { saved = localStorage.getItem('mag-textsize'); } catch (e) {}
+      const apply = px => {
+        document.body.style.fontSize = px + 'px';
+        ts.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.size === px));
+      };
+      if (saved) apply(saved);
+      ts.addEventListener('click', e => {
+        const b = e.target.closest('button'); if (!b) return;
+        apply(b.dataset.size);
+        try { localStorage.setItem('mag-textsize', b.dataset.size); } catch (e) {}
+      });
+    })();
 
   </script>
 </body>
