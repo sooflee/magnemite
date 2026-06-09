@@ -78,6 +78,31 @@
     .neu { color: #2c5282; font-weight: 600; }
     .bar { display: inline-block; height: .85em; background: #2c5282; border-radius: 2px;
             vertical-align: middle; margin-right: .4em; opacity: .7; }
+    @media (max-width: 640px) {
+      .layout { margin: 1.1em auto; padding: 0 .9em; gap: 0; }
+      h1 { font-size: 1.3em; line-height: 1.25; }
+      h2 { font-size: 1.12em; margin-top: 1.7em; }
+      h3 { font-size: 1em; }
+      .meta { font-size: .82em; }
+      .summary, .takeaway, .caveat { padding: .8em 1em; }
+      .price-filter { font-size: .82em; gap: .35em; }
+      .price-filter button { padding: .25em .65em; }
+      /* Stack each table row as a labelled card instead of a cramped grid */
+      div[style*='overflow-x:auto'] { overflow-x: visible; }
+      table { width: 100%; min-width: 0; display: block; margin: 1em 0; }
+      table tr { display: block; border: 1px solid #e0e6ef; border-radius: 8px;
+                  padding: .45em .2em; margin: .7em 0; background: #fff; }
+      table tr:first-child { display: none; }
+      table td { display: flex; justify-content: space-between; gap: 1.2em;
+                  align-items: baseline; border: none; padding: .28em .8em;
+                  font-size: .86em; text-align: right; }
+      table td::before { content: attr(data-label); color: #5b6472; font-weight: 600;
+                          text-align: left; white-space: nowrap; }
+      table td:first-child { display: block; text-align: left; font-weight: 700;
+                              color: #1a1a1a; font-size: .98em; padding: .1em .55em .45em;
+                              margin-bottom: .25em; border-bottom: 1px solid #eef1f6; }
+      table td:first-child::before { content: none; }
+    }
   </style>
 </head>
 <body>
@@ -298,6 +323,19 @@
         });
       });
     }
+
+    // Label each cell with its column header (drives the mobile card layout)
+    document.querySelectorAll('table').forEach(t => {
+      const head = t.querySelector('tr');
+      if (!head) return;
+      const labels = Array.from(head.children).map(c => c.textContent.trim());
+      Array.from(t.querySelectorAll('tr')).forEach((row, i) => {
+        if (i === 0) return;
+        Array.from(row.children).forEach((td, c) => {
+          if (labels[c]) td.setAttribute('data-label', labels[c]);
+        });
+      });
+    });
 
     // Scroll-spy for TOC
     const tocLinks = document.querySelectorAll('nav.toc a');
