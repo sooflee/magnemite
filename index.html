@@ -30,6 +30,18 @@
     .chart .fill.neg { right: 50%; background: #cc6258; }
     .chart .val { font-variant-numeric: tabular-nums; text-align: left; }
     .chart .val.pos { color: #276749; } .chart .val.neg { color: #c53030; }
+    .chart .fill.grey { background: #b9b3a6; }
+    .chart.bars .track::before { display: none; }
+    .chart.bars .fill { left: 0; right: auto; }
+    .chart.bars .row { grid-template-columns: 11.5em 1fr 4.2em; }
+    .stackbar { display: flex; height: 1.7em; border-radius: 4px; overflow: hidden; margin: 1em 0 .5em; font-size: .8em; }
+    .stackbar > span { display: flex; align-items: center; justify-content: center; color: #fff; min-width: 0; }
+    .stack-up { background: #3a9568; } .stack-flat { background: #5a7fa8; } .stack-down { background: #cc6258; } .stack-unk { background: #b9b3a6; }
+    figure.scatter { margin: 1.6em 0 2.2em; }
+    figure.scatter .cap { font-size: .82em; color: #5a544c; font-style: italic; margin-bottom: .5em; }
+    figure.scatter svg { width: 100%; height: auto; display: block; }
+    figure.scatter .lgd { font-size: .8em; color: #5a544c; margin-top: .4em; display: flex; gap: 1.1em; flex-wrap: wrap; }
+    .dot { display: inline-block; width: .7em; height: .7em; border-radius: 50%; vertical-align: middle; margin-right: .25em; }
     h1 { border-bottom: 2px solid #1a1a1a; padding-bottom: .3em; margin-bottom: .2em;
           font-size: 1.5em; line-height: 1.2; }
     h2 { margin-top: 2.6em; color: #2c5282; padding-bottom: .25em; font-size: 1.4em;
@@ -246,6 +258,17 @@
   </table></div>
   <p>Genuine ballots are rare up here: F.P. Journe, Voutilainen, Roger W. Smith, Richard Mille, Berneron and the rest are order-book or relationship allocations, not draws. Several figures rest on a single recent result, and a higher or lower comparable would move the multiple materially.</p>
 
+  <figure class='scatter'>
+    <div class='cap'>Every allocated watch, plotted: entry price (log scale) vs. resale multiple. Anything above the dashed 1&times; line sells over retail. Hover a dot for the watch.</div>
+    <div id='scatterplot'></div>
+    <div class='lgd'><span><span class='dot' style='background:#2f8f5b'></span>rising</span><span><span class='dot' style='background:#5a7fa8'></span>flat</span><span><span class='dot' style='background:#c95b54'></span>cooling</span></div>
+  </figure>
+
+  <figure class='chart'>
+    <figcaption>Secondary-market direction across the whole list &mdash; acclaim-driven independents rising, hype-driven pieces cooling</figcaption>
+    <div id='trendsplit'></div>
+  </figure>
+
   <h2 id='established'>4. The established brands</h2>
   <div class='takeaway'>
     <b>In short:</b> the same allocation dynamic operates at the top of the market. Rolex, Patek Philippe, and Audemars Piguet retain value in steel sports models, but only buyers allocated one at retail capture the premium &mdash; access, not capital, is the constraint.
@@ -267,6 +290,28 @@
   </table></div>
   <p>At entry prices, value retention without the access advantage is modest: a standard Omega Speedmaster Moonwatch trades somewhat below retail pre-owned (its limited editions, like the Snoopy above, are the exception), and a Tudor Black Bay holds roughly 85&ndash;95% of retail. These are reasonable watches to own, but not appreciation stories.</p>
 
+  <figure class='chart bars'>
+    <figcaption>Discontinuation as a catalyst: secondary price at discontinuation vs. now</figcaption>
+    <div class='row'><span class='name'>Patek 5711 &mdash; then</span><span class='track'><i class='fill grey' style='width:26%'></i></span><span class='val'>$30k</span></div>
+    <div class='row'><span class='name'>Patek 5711 &mdash; now</span><span class='track'><i class='fill pos' style='width:100%'></i></span><span class='val pos'>$117k</span></div>
+    <div class='row'><span class='name'>AP RO 15202 &mdash; then</span><span class='track'><i class='fill grey' style='width:28%'></i></span><span class='val'>$33k</span></div>
+    <div class='row'><span class='name'>AP RO 15202 &mdash; now</span><span class='track'><i class='fill pos' style='width:55%'></i></span><span class='val pos'>$64k</span></div>
+    <div class='row'><span class='name'>Rolex Pepsi &mdash; then</span><span class='track'><i class='fill grey' style='width:10%'></i></span><span class='val'>$12k</span></div>
+    <div class='row'><span class='name'>Rolex Pepsi &mdash; now</span><span class='track'><i class='fill pos' style='width:22%'></i></span><span class='val pos'>$26k</span></div>
+  </figure>
+
+  <figure class='chart'>
+    <figcaption>The steel paradox: steel sports models out-appreciate their gold / platinum siblings</figcaption>
+    <div class='row'><span class='name'>Submariner &mdash; steel</span><span class='track'><i class='fill pos' style='width:13%'></i></span><span class='val pos'>+40%</span></div>
+    <div class='row'><span class='name'>Submariner &mdash; gold</span><span class='track'><i class='fill neg' style='width:5%'></i></span><span class='val neg'>&minus;15%</span></div>
+    <div class='row'><span class='name'>Daytona &mdash; steel</span><span class='track'><i class='fill pos' style='width:38%'></i></span><span class='val pos'>+115%</span></div>
+    <div class='row'><span class='name'>Daytona &mdash; gold</span><span class='track'><i class='fill neg' style='width:3%'></i></span><span class='val neg'>&minus;10%</span></div>
+    <div class='row'><span class='name'>Nautilus &mdash; steel</span><span class='track'><i class='fill pos' style='width:50%'></i></span><span class='val pos'>+290%</span></div>
+    <div class='row'><span class='name'>Nautilus &mdash; gold</span><span class='track'><i class='fill pos' style='width:22%'></i></span><span class='val pos'>+67%</span></div>
+    <div class='row'><span class='name'>Royal Oak &mdash; steel</span><span class='track'><i class='fill pos' style='width:23%'></i></span><span class='val pos'>+70%</span></div>
+    <div class='row'><span class='name'>Royal Oak &mdash; gold</span><span class='track'><i class='fill neg' style='width:3%'></i></span><span class='val neg'>&minus;8%</span></div>
+  </figure>
+
   <h2 id='caution'>5. What to treat with caution</h2>
   <div class='takeaway'>
     <b>In short:</b> most affordable brands trade at or below retail, and online "multiples" are frequently asking prices rather than completed sales.
@@ -286,6 +331,14 @@
     <b>In short:</b> selling costs and limited liquidity absorb much of any gain, so the net case is narrower than headline premiums suggest.
   </div>
   <p>Realizing a gain involves selling, and selling is expensive. A round trip typically costs <b>11&ndash;30%</b> once dealer spreads or platform fees are included, and finding a buyer can take weeks or months &mdash; watches are not liquid like listed securities. Ongoing insurance and servicing add roughly 2&ndash;3% per year. A watch appreciating 5% annually but costing 3% to hold returns little after costs and inflation.</p>
+  <figure class='chart'>
+    <figcaption>A 5-year hold at +5%/yr, after costs &mdash; the gain is largely consumed</figcaption>
+    <div class='row'><span class='name'>Gross (5 yr)</span><span class='track'><i class='fill pos' style='width:50%'></i></span><span class='val pos'>+25%</span></div>
+    <div class='row'><span class='name'>&minus; carrying</span><span class='track'><i class='fill neg' style='width:20%'></i></span><span class='val neg'>&minus;10%</span></div>
+    <div class='row'><span class='name'>&minus; sell spread</span><span class='track'><i class='fill neg' style='width:30%'></i></span><span class='val neg'>&minus;15%</span></div>
+    <div class='row'><span class='name'>Net (real)</span><span class='track'><i class='fill grey' style='width:1.5%'></i></span><span class='val'>&asymp;0%</span></div>
+  </figure>
+
   <p>The cases that clear these costs are narrow: established references bought at retail, and the lottery- or drop-allocated independents above when acquired at retail. Most other watches, at best, break even.</p>
 
   <h2 id='principles'>7. Buying principles</h2>
@@ -528,6 +581,65 @@
       const lastTh = tbl.querySelector('tr').lastElementChild;
       if (lastTh) lastTh.classList.add('sort-asc');
     });
+
+    // Scatter: entry price (log x) vs resale multiple (log y), colored by trend
+    (function () {
+      const host = document.getElementById('scatterplot');
+      if (!host) return;
+      const COL = { up: '#2f8f5b', flat: '#5a7fa8', down: '#c95b54', unknown: '#9a958b' };
+      const pts = [];
+      ['#accessible-table', '#verified-table'].forEach(sel => {
+        const t = document.querySelector(sel); if (!t) return;
+        Array.from(t.querySelectorAll('tr[data-price]')).forEach(r => {
+          const price = +r.dataset.price;
+          const mm = (r.children[3] ? r.children[3].textContent : '').match(/(\d+(?:\.\d+)?)/);
+          const mult = mm ? parseFloat(mm[1]) : NaN;
+          if (!price || isNaN(mult) || mult < 1) return;
+          pts.push({ name: (r.children[0].textContent || '').replace(/ /g, ' '), price, mult, trend: (r.dataset.trend || 'unknown').toLowerCase() });
+        });
+      });
+      const W = 720, H = 380, L = 46, R = 14, T = 14, B = 32;
+      const lg = v => Math.log(v) / Math.LN10;
+      const x0 = lg(100), x1 = lg(500000), y0 = lg(1), y1 = lg(35);
+      const xs = v => L + (lg(v) - x0) / (x1 - x0) * (W - L - R);
+      const ys = v => H - B - (lg(v) - y0) / (y1 - y0) * (H - T - B);
+      let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" font-size="11" font-family="inherit">';
+      [[100, '$100'], [1000, '$1k'], [10000, '$10k'], [100000, '$100k']].forEach(t => {
+        const x = xs(t[0]);
+        s += '<line x1="' + x + '" y1="' + T + '" x2="' + x + '" y2="' + (H - B) + '" stroke="#efece4"/>';
+        s += '<text x="' + x + '" y="' + (H - B + 16) + '" text-anchor="middle" fill="#888">' + t[1] + '</text>';
+      });
+      [1, 2, 5, 10, 20].forEach(v => {
+        const y = ys(v);
+        s += '<line x1="' + L + '" y1="' + y + '" x2="' + (W - R) + '" y2="' + y + '" stroke="' + (v === 1 ? '#b9b3a6' : '#efece4') + '"' + (v === 1 ? ' stroke-dasharray="4 3"' : '') + '/>';
+        s += '<text x="' + (L - 6) + '" y="' + (y + 3) + '" text-anchor="end" fill="#888">' + v + '×</text>';
+      });
+      pts.forEach(p => {
+        s += '<circle cx="' + xs(p.price).toFixed(1) + '" cy="' + ys(p.mult).toFixed(1) + '" r="4.6" fill="' + (COL[p.trend] || COL.unknown) + '" fill-opacity="0.82" stroke="#fff" stroke-width="0.8"><title>' +
+          p.name.replace(/&/g, '&amp;').replace(/</g, '&lt;') + ' — ~' + p.mult + '× at $' + p.price.toLocaleString() + '</title></circle>';
+      });
+      s += '</svg>';
+      host.innerHTML = s;
+    })();
+
+    // Trend split: stacked bar of rising / flat / cooling across all watch tables
+    (function () {
+      const host = document.getElementById('trendsplit');
+      if (!host) return;
+      const c = { up: 0, flat: 0, down: 0, unknown: 0 };
+      ['#accessible-table', '#verified-table', '#established-table'].forEach(sel => {
+        const t = document.querySelector(sel); if (!t) return;
+        Array.from(t.querySelectorAll('tr')).slice(1).forEach(r => {
+          const tr = (r.dataset.trend || 'unknown').toLowerCase();
+          if (c[tr] != null) c[tr]++;
+        });
+      });
+      const tot = c.up + c.flat + c.down + c.unknown || 1;
+      const seg = (n, cls, lbl) => n ? '<span class="' + cls + '" style="width:' + (n / tot * 100).toFixed(1) + '%">' + n + ' ' + lbl + '</span>' : '';
+      host.innerHTML = '<div class="stackbar">' +
+        seg(c.up, 'stack-up', '▲ rising') + seg(c.flat, 'stack-flat', '→ flat') +
+        seg(c.down, 'stack-down', '▼ cooling') + seg(c.unknown, 'stack-unk', '·') + '</div>';
+    })();
 
     // Text-size control (persisted)
     (function () {
