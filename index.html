@@ -10,20 +10,23 @@
   <meta property='og:description' content="Which watches resell above retail and why — how scarcity and allocation drive value, and the costs that offset it.">
   <style>
     body { font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, Cambria, 'Times New Roman', serif;
-            margin: 0; color: #222; line-height: 1.7; font-size: 18px;
-            -webkit-font-smoothing: antialiased; }
-    .layout { max-width: 800px; margin: 2em auto; padding: 0 1.2em; }
+            margin: 0; color: #262320; line-height: 1.7; font-size: 18px; background: #fcfbf8;
+            -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    .layout { max-width: 860px; margin: 2.4em auto; padding: 0 1.3em; }
     article { min-width: 0; }
+    /* keep prose to a comfortable measure; let tables use the full width */
+    article > p, article > ul, article > ol, .summary, .takeaway, .caveat, .meta, .dek, .footnote, .price-filter { max-width: 680px; }
+    .dek { font-size: 1.18em; line-height: 1.5; color: #5a544c; font-style: italic; margin: .15em 0 1em; }
     h1 { border-bottom: 2px solid #1a1a1a; padding-bottom: .3em; margin-bottom: .2em;
           font-size: 1.5em; line-height: 1.2; }
-    h2 { margin-top: 2.2em; color: #2c5282; padding-bottom: .2em;
-          border-bottom: 1px solid #e0e6ef; scroll-margin-top: 1em; }
-    h3 { color: #2c5282; margin-top: 1.6em; scroll-margin-top: 1em; }
+    h2 { margin-top: 2.6em; color: #2c5282; padding-bottom: .25em; font-size: 1.4em;
+          border-bottom: 1px solid #ddd6c8; scroll-margin-top: 1em; }
+    h3 { color: #2c5282; margin-top: 1.9em; font-size: 1.12em; scroll-margin-top: 1em; }
     p { margin: .8em 0; }
-    table { border-collapse: collapse; margin: 1em 0; width: 100%; }
-    th, td { padding: .4em .8em; border-bottom: 1px solid #ddd; text-align: left; font-size: .88em;
+    table { border-collapse: collapse; margin: 1.4em 0; width: 100%; }
+    th, td { padding: .5em .85em; border-bottom: 1px solid #e7e3da; text-align: left; font-size: .88em;
               font-variant-numeric: tabular-nums; }
-    th { background: #f3f5f9; }
+    th { background: #efece4; font-weight: 700; }
     table.sortable th { cursor: pointer; user-select: none; position: relative; padding-right: 1.4em; }
     table.sortable th::after { content: '\2195'; position: absolute; right: .4em; color: #aaa; font-size: .85em; }
     table.sortable th.sort-asc::after { content: '\25B2'; color: #2c5282; }
@@ -54,6 +57,15 @@
     .neu { color: #2c5282; font-weight: 600; }
     .bar { display: inline-block; height: .85em; background: #2c5282; border-radius: 2px;
             vertical-align: middle; margin-right: .4em; opacity: .7; }
+    /* Desktop table polish: zebra, hover, sticky headers, right-aligned numbers */
+    @media (min-width: 641px) {
+      div[style*='overflow-x:auto'] { overflow: visible; }
+      table.sortable th { position: sticky; top: 0; z-index: 2; box-shadow: inset 0 -1px 0 #d8d3c8; }
+      table.sortable tr:nth-child(even) td { background: #f6f4ee; }
+      table.sortable tr:hover td { background: #ebeef4; }
+      [id$='-table'] td:nth-child(2), [id$='-table'] td:nth-child(3), [id$='-table'] td:nth-child(4),
+      [id$='-table'] th:nth-child(2), [id$='-table'] th:nth-child(3), [id$='-table'] th:nth-child(4) { text-align: right; }
+    }
     @media (max-width: 640px) {
       .layout { margin: 1.1em auto; padding: 0 .9em; gap: 0; }
       h1 { font-size: 1.3em; line-height: 1.25; }
@@ -86,6 +98,7 @@
   <article>
 
   <h1>Watches that beat retail: scarcity, allocation, and the secondary market</h1>
+  <p class='dek'>Most watches lose money. The ones that don't share a single trait &mdash; supply allocated below demand, by lottery, drop, or waitlist &mdash; and the premium belongs to whoever gets in at retail.</p>
   <p class='meta'>~8 min read &middot; compiled June 2026 &middot; data from WatchCharts, Chrono24, StockX, and auction records (Phillips, Christie's, Sotheby's, Loupe This)</p>
 
   <div class='summary' id='summary'>
