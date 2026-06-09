@@ -305,23 +305,86 @@
       });
     });
 
-    // Price filters: each .price-filter drives the table named in its data-target
-    document.querySelectorAll('.price-filter').forEach(pf => {
-      const tbl = document.querySelector(pf.dataset.target || '#accessible-table');
+    // --- Combined filters: price + status + origin, per table (all AND together) ---
+    const REGION = [
+      [/casio|g-shock|otsuka|naoya hida|kurono|asaoka|kikuno/, 'Japan'],
+      [/studio underd0g|frodsham|roger w\.? smith/, 'UK'],
+      [/toledano|massena|keaton myrick|shapiro/, 'US'],
+      [/simon brette|pinaud|cartier/, 'France'],
+      [/lange/, 'Germany'],
+      [/journe|dufour|berneron|rexhep|akrivia|voutilainen|richard mille|haldimann|louis erard|mb&f|omega|tudor|vacheron|patek|royal oak|audemars/, 'Switzerland'],
+      [/ming|anoma/, 'Other'],
+    ];
+    const STATUS = [
+      [/watermel0n|kurono|anoma|otsuka|naoya hida|journe|berneron|pinaud|frodsham|asaoka|kikuno|keaton myrick|shapiro|cartier crash|haldimann/, 'In production'],
+      [/ring watch|toledano|inter miami|simon brette|cartier pebble|odysseus titanium|ming/, 'Sold out'],
+      [/sk-5|louis erard|m\.a\.d|omega|massena|dufour|rexhep|voutilainen|richard mille|roger w\.? smith|akrivia|cornes de vache/, 'Discontinued'],
+    ];
+    function classify(name, map, dflt) {
+      const t = (name || '').toLowerCase();
+      for (const pair of map) if (pair[0].test(t)) return pair[1];
+      return dflt;
+    }
+    document.querySelectorAll('.price-filter[data-target]').forEach(pf => { pf.dataset.kind = 'price'; });
+    ['#accessible-table', '#verified-table'].forEach(sel => {
+      const tbl = document.querySelector(sel);
       if (!tbl) return;
-      const prows = tbl.querySelectorAll('tr[data-price]');
-      pf.addEventListener('click', e => {
+      const rows = Array.from(tbl.querySelectorAll('tr[data-price]'));
+      rows.forEach(r => {
+        const name = r.children[0] ? r.children[0].textContent : '';
+        r.dataset.status = classify(name, STATUS, 'Sold out');
+        r.dataset.region = classify(name, REGION, 'Other');
+      });
+      const priceGroup = document.querySelector('.price-filter[data-target="' + sel + '"]');
+      const groups = priceGroup ? [priceGroup] : [];
+      let anchor = priceGroup;
+      [['Status', 'status'], ['Origin', 'region']].forEach(pair => {
+        const lbl = pair[0], attr = pair[1];
+        const vals = Array.from(new Set(rows.map(r => r.dataset[attr]))).sort();
+        const g = document.createElement('div');
+        g.className = 'price-filter';
+        g.dataset.kind = 'attr';
+        g.dataset.attr = attr;
+        g.dataset.target = sel;
+        g.innerHTML = '<span>' + lbl + ':</span>';
+        ['', ...vals].forEach(v => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = v || 'All';
+          b.dataset.val = v;
+          if (v === '') b.className = 'active';
+          g.appendChild(b);
+        });
+        if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(g, anchor.nextSibling);
+        anchor = g;
+        groups.push(g);
+      });
+      const apply = () => {
+        rows.forEach(r => {
+          let show = true;
+          for (const g of groups) {
+            const btn = g.querySelector('button.active');
+            if (!btn) continue;
+            if (g.dataset.kind === 'price') {
+              const min = btn.dataset.min ? parseFloat(btn.dataset.min) : -Infinity;
+              const max = btn.dataset.max ? parseFloat(btn.dataset.max) : Infinity;
+              const p = parseFloat(r.dataset.price);
+              if (!(p >= min && p < max)) show = false;
+            } else {
+              const val = btn.dataset.val || '';
+              if (val && (r.dataset[g.dataset.attr] || '') !== val) show = false;
+            }
+          }
+          r.style.display = show ? '' : 'none';
+        });
+      };
+      groups.forEach(g => g.addEventListener('click', e => {
         const btn = e.target.closest('button');
         if (!btn) return;
-        const min = btn.dataset.min ? parseFloat(btn.dataset.min) : -Infinity;
-        const max = btn.dataset.max ? parseFloat(btn.dataset.max) : Infinity;
-        pf.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        g.querySelectorAll('button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        prows.forEach(r => {
-          const p = parseFloat(r.dataset.price);
-          r.style.display = (p >= min && p < max) ? '' : 'none';
-        });
-      });
+        apply();
+      }));
     });
 
     // Label each cell with its column header (drives the mobile card layout)
